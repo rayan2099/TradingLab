@@ -6,7 +6,8 @@
 #
 # Every target runs the safety gate first.
 
-PY        ?= python3
+# Freqtrade 2026.10 needs Python 3.12+; pick the newest one installed.
+PY        ?= $(shell for p in python3.14 python3.13 python3.12 python3; do command -v $$p >/dev/null 2>&1 && $$p -c 'import sys; sys.exit(sys.version_info < (3, 12))' 2>/dev/null && { echo $$p; break; }; done)
 VENV      := .venv
 FT        := $(VENV)/bin/freqtrade
 CFG       := --userdir user_data --config user_data/config/base.json
@@ -23,9 +24,10 @@ help:            ## list targets
 	@grep -E '^[a-z-]+:.*##' $(MAKEFILE_LIST) | sed 's/:.*##/ -/'
 
 check:           ## safety gate: dry-run, no keys, spot, no leverage/shorts, stops within limit
-	$(PY) scripts/safety_check.py
+	python3 scripts/safety_check.py
 
 setup: check     ## create .venv with the pinned Freqtrade, FreqUI and local dashboard logins
+	@test -n "$(PY)" || { echo "Python 3.12+ is required (brew install python@3.13)"; exit 1; }
 	$(PY) -m venv $(VENV)
 	$(VENV)/bin/pip install -q --upgrade pip
 	$(VENV)/bin/pip install -q -r requirements.txt

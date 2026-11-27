@@ -6,7 +6,7 @@ from lab_risk import RiskGuardedStrategy
 
 class MeanReversionV1(RiskGuardedStrategy):
     timeframe = "1h"
-    startup_candle_count = 210
+    startup_candle_count = 600  # EMA200 needs ~3x its period to settle (recursive-analysis)
     minimal_roi = {"0": 0.04, "240": 0.02, "720": 0}
     stoploss = -0.04
 

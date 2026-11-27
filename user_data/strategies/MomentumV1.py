@@ -5,7 +5,7 @@ from lab_risk import RiskGuardedStrategy
 
 class MomentumV1(RiskGuardedStrategy):
     timeframe = "1h"
-    startup_candle_count = 100
+    startup_candle_count = 200  # MACD settles by ~200 candles (recursive-analysis)
     minimal_roi = {"0": 0.06, "360": 0.03, "1440": 0}
     stoploss = -0.035
 

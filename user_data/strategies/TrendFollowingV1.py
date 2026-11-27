@@ -6,7 +6,7 @@ from lab_risk import RiskGuardedStrategy
 
 class TrendFollowingV1(RiskGuardedStrategy):
     timeframe = "1h"
-    startup_candle_count = 210
+    startup_candle_count = 600  # EMA200 needs ~3x its period to settle (recursive-analysis)
     minimal_roi = {"0": 100}  # exits come from signals / stops, not ROI
     stoploss = -0.04
     trailing_stop = True

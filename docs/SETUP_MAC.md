@@ -1,6 +1,6 @@
 # Running Trading Lab on a Mac
 
-Works on Apple silicon and Intel. Needs Python 3.11+ (`python3 --version`), `make`
+Works on Apple silicon and Intel. Needs Python 3.12+ (`make setup` finds python3.12/3.13/3.14 automatically; if none, `brew install python@3.13`), `make`
 (`xcode-select --install` if missing) and about 3 GB of free disk. Docker is optional.
 
 ## 1. Install

@@ -29,7 +29,12 @@ case "${1:-status}" in
     ;;
   stop)
     for b in $(bots); do
-      if alive "$b"; then kill "$(cat "$RUN/$b.pid")" && echo "stopped $b"; fi
+      if alive "$b"; then
+        pid="$(cat "$RUN/$b.pid")"; kill "$pid"
+        for _ in $(seq 60); do kill -0 "$pid" 2>/dev/null || break; sleep 1; done
+        if kill -0 "$pid" 2>/dev/null; then echo "$b did not exit within 60s (pid $pid)"; exit 1; fi
+        echo "stopped $b"
+      fi
       rm -f "$RUN/$b.pid"
     done
     ;;

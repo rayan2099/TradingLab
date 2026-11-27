@@ -50,7 +50,7 @@ def main() -> None:
         lines.append(f"{name:28s} http://127.0.0.1:{port}")
     creds.write_text("\n".join(lines) + "\n")
     creds.chmod(0o600)
-    print(creds.read_text())
+    print(f"Dashboard addresses and login saved to {creds.relative_to(ROOT)} (readable by you only).")
 
 
 if __name__ == "__main__":
