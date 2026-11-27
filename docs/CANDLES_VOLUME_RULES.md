@@ -250,7 +250,7 @@ TARGET: next HTF supply zone / previous top (no fixed % in slides)
 Source: the discussion group **«احتراف المضاربات اللحظية ٩»**, where students apply what the channel teaches.
 Two accounts matter: **"Mod ."** (Abu Khalid, `@modee_14`, the most active member: about 1,300 of 3,900 messages read so far)
 and **the teacher himself, "أحمد ( أبو عبدالله )"** (`@Ahmed_Abuabullah`). References are group message numbers (`g#N`).
-Coverage so far: **4 Mar – 27 Nov 2026** (messages `g#19265–26794`). Older history is still being read.
+Coverage so far: **7 Jan – 27 Nov 2026** (messages `g#17490–26794`). Older history is still being read.
 Most of Mod's posts are chart images captioned with a stock name and a pattern name. Only the text is captured here.
 
 ### 8.1 Rules confirmed or added by the teacher
@@ -313,4 +313,30 @@ Mod's own simpler version of a "beautiful but complicated" momentum strategy. In
 - **Stochastic on the hourly** (Mod's own add-on): crossing up from 20 = a rebound in rising stocks; crossing down from 80 = exit. It's not part of the teacher's method. `g#21859`
 - **Always place the stop order as soon as you open the trade.** `g#21671`
 
-> Not yet read: the group's history before 4 Mar 2026, and the chart images themselves.
+### 8.5 More from Jan – Mar 2026
+**Taking profit in parts** (Mod, `g#18207–18227, 18472`). This is how he actually exits:
+- Sell part of the position at **+2 to 3 %**, where the first target is often the **Fib 61.8 % level**. Raise the stop to the entry price or to the last higher low.
+- Sell the same amount at each further +2 %, raising the stop each time. Keep the rest until a negative pattern appears.
+- If price pulls back to the stop and forms a new bullish pattern, **buy back the part you sold**.
+- The simpler alternative is to sell everything at +2 to 3 % and look for the next trade.
+
+**Position-trading on higher timeframes** (Mod, `g#17599–17609, 19220–19222`): pick **3 stocks at strong demand zones** and put an equal amount in each. Set the target at **2–3× the stop** (e.g. stop 1,000, target 2,000–3,000). Two losers and one winner still leave you up. Don't put large money into one stock.
+
+**Demand / supply zones** (Mod, `g#18944–18947`):
+- A demand zone forms at a **bottom**, or where price **breaks out of a supply zone**.
+- The best demand zone is a bottom where the rise afterwards was strong and **broke a prior high**.
+- When a demand zone breaks, the top of the candle that broke it becomes supply. If that supply is later broken, it becomes demand again.
+
+**Market filter** (Mod and teacher, `g#18487, 18775, 19109–19114, 17984`):
+- **Stop opening trades when TASI is at a weekly supply zone.** Trade when TASI *and* the stock are both at demand zones; that's when most patterns work.
+- When TASI presses down, patterns fail more often, even at good zones.
+- You don't need a trade every day. If TASI is turning down, trade small or not at all.
+
+**Other**
+- **A close at a hollow candle is usually followed by a drop back to its low.** `g#19184`
+- **On news days**, check where the stock is on the chart. A gap-up on news at a top often turns into a sharp drop. `g#18685–18686`
+- **Hourly "price explosion"**: mark the hourly explosion candle and wait for price to come back to it. Patterns usually form on the smaller TF first. `g#18519–18525`
+- For TASI or any stock far from its moving average, draw the Fib from top to bottom (teacher). `g#18608`
+- **A speculator exits as soon as a negative pattern forms on the intraday chart**, without waiting for the daily. `g#18562`
+
+> Not yet read: the group's history before 7 Jan 2026, and the chart images themselves.
