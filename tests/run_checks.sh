@@ -1,11 +1,13 @@
 #!/usr/bin/env bash
 # Offline test suite: safety gate (pass + must-fail cases), and backtests on
-# synthetic candles proving the strategies load and the 5% halt fires.
+# synthetic candles proving the course strategies load and the 5% halt fires.
 # usage: tests/run_checks.sh   (needs a Python env with freqtrade installed)
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 PY="${PYTHON:-python3}"
 WORK="$(mktemp -d)"
+# Strategies coded from the course (docs/CANDLES_VOLUME_RULES.md). Add new ones here.
+COURSE_STRATS="${COURSE_STRATS:-CandleVolumeV1}"
 echo "== safety gate (expect pass)"; "$PY" "$ROOT/scripts/safety_check.py"
 
 echo "== safety gate must refuse bad configs"
@@ -23,7 +25,7 @@ if FREQTRADE__DRY_RUN=false "$PY" "$ROOT/scripts/safety_check.py" >/dev/null 2>&
 echo "   refused: FREQTRADE__DRY_RUN env override"
 cp -r "$ROOT" "$WORK/bad"; mkdir -p "$WORK/bad/user_data/config/local"
 echo '{"api_server":{"enabled":true,"listen_ip_address":"0.0.0.0","listen_port":8081}}' \
-  > "$WORK/bad/user_data/config/local/slot01_trend_following.json"
+  > "$WORK/bad/user_data/config/local/course_candle_volume.json"
 if "$PY" "$WORK/bad/scripts/safety_check.py" >/dev/null 2>&1; then echo "FAIL: accepted public dashboard"; exit 1; fi
 echo "   refused: dashboard listening beyond 127.0.0.1"; rm -rf "$WORK/bad"
 
@@ -36,9 +38,9 @@ FT=("$PY" "$ROOT/tests/offline_freqtrade.py" backtesting --userdir "$ROOT/user_d
     --datadir "$WORK/data/binance" --config "$ROOT/user_data/config/base.json"
     --export trades --backtest-directory "$WORK/results/")
 
-echo "== all slots + benchmark load and backtest"
-"${FT[@]}" --strategy-list TrendFollowingV1 MeanReversionV1 MomentumV1 BreakoutV1 \
-  VolumeAnalysisV1 MachineLearningV1 BuyAndHoldBenchmark > "$WORK/all.log" 2>&1
+echo "== course strategies + benchmark load and backtest"
+"${FT[@]}" --strategy-list $COURSE_STRATS BuyAndHoldBenchmark > "$WORK/all.log" 2>&1 \
+  || { tail -20 "$WORK/all.log"; exit 1; }
 sed -n '/STRATEGY SUMMARY/,$p' "$WORK/all.log"
 
 echo "== every trade sized to ~1% equity risk"
@@ -51,7 +53,7 @@ with zipfile.ZipFile(z) as f:
     data = json.loads(f.read(name))["strategy"]
 worst = 0.0
 for strat, r in data.items():
-    if strat in ("BuyAndHoldBenchmark", "MachineLearningV1"):
+    if strat == "BuyAndHoldBenchmark":
         continue
     equity = r["starting_balance"]
     for t in sorted(r["trades"], key=lambda t: t["open_timestamp"]):
@@ -66,34 +68,15 @@ echo "== scorecard renders"
 cp "$WORK"/results/*.zip "$WORK/latest.zip"
 "$PY" "$ROOT/scripts/scorecard.py" backtest "$WORK/latest.zip" | tail -3
 
-echo "== no lookahead bias in any signal strategy"
+echo "== no lookahead bias in any course strategy"
 "$PY" "$ROOT/tests/offline_freqtrade.py" lookahead-analysis --userdir "$ROOT/user_data" \
   --datadir "$WORK/data/binance" --config "$ROOT/user_data/config/base.json" \
   --backtest-directory "$WORK/la/" --timerange 20260101- \
-  --strategy-list TrendFollowingV1 MeanReversionV1 MomentumV1 BreakoutV1 VolumeAnalysisV1 > "$WORK/la.log" 2>&1
-grep -E "V1 " "$WORK/la.log" | grep -q " Yes " && { grep -E "V1 " "$WORK/la.log"; echo "FAIL: lookahead bias"; exit 1; }
-echo "   PASS: 5 strategies, has_bias = No"
+  --strategy-list $COURSE_STRATS > "$WORK/la.log" 2>&1
+grep -E "\.py " "$WORK/la.log" | grep -q " Yes " && { grep -E "\.py " "$WORK/la.log"; echo "FAIL: lookahead bias"; exit 1; }
+echo "   PASS: $COURSE_STRATS has_bias = No"
 
-echo "== Phase 2 strategies load, trade only in an uptrend, and have no lookahead bias"
-"${FT[@]}" --strategy-list TrendFollowingR MeanReversionR MomentumR BreakoutR VolumeAnalysisR CandleVolumeV1 \
-  --timerange 20251001- > "$WORK/p2.log" 2>&1 || { tail -20 "$WORK/p2.log"; exit 1; }
-"$PY" - "$WORK/data/binance" <<'PYEOF'
-import sys
-from pathlib import Path
-import pandas as pd
-for f in Path(sys.argv[1]).glob("*-1h.feather"):  # 4h candles for TrendRiderV1
-    h = pd.read_feather(f).set_index("date")
-    h.resample("4h").agg({"open": "first", "high": "max", "low": "min", "close": "last",
-                          "volume": "sum"}).dropna().reset_index() \
-        .to_feather(str(f).replace("-1h.", "-4h."))
-PYEOF
-"${FT[@]}" --timeframe 4h --strategy-list TrendRiderV1 --timerange 20251001- > "$WORK/p2b.log" 2>&1 \
-  || { tail -20 "$WORK/p2b.log"; exit 1; }
-"$PY" "$ROOT/tests/offline_freqtrade.py" lookahead-analysis --userdir "$ROOT/user_data" \
-  --datadir "$WORK/data/binance" --config "$ROOT/user_data/config/base.json" \
-  --backtest-directory "$WORK/la/" --timerange 20260101- \
-  --strategy-list TrendFollowingR MeanReversionR MomentumR BreakoutR VolumeAnalysisR CandleVolumeV1 > "$WORK/la2.log" 2>&1
-grep -E "\.py " "$WORK/la2.log" | grep -q " Yes " && { grep -E "\.py " "$WORK/la2.log"; echo "FAIL: lookahead bias"; exit 1; }
+echo "== uptrend filter (lab_regime) behaves"
 "$PY" - "$ROOT" <<'PYEOF'
 import sys
 import pandas as pd
@@ -109,7 +92,6 @@ assert df["uptrend"].iloc[-24:].all(), "no uptrend at the end of a long rise"
 assert df.groupby(df["date"].dt.date)["uptrend"].nunique().max() == 1, "regime changed intraday"
 print("   PASS: uptrend filter (off in a fall, on in a rise, changes only at day close)")
 PYEOF
-echo "   PASS: 7 Phase 2 strategies backtest, has_bias = No"
 
 echo "== hard 5% halt fires"
 cp "$ROOT/tests/strategies/HaltProbe.py" "$WORK/HaltProbe.py"

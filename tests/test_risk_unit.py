@@ -16,7 +16,7 @@ sys.path.insert(0, str(ROOT / "user_data" / "strategies"))
 from freqtrade.enums import RunMode  # noqa: E402
 
 import lab_risk  # noqa: E402
-from TrendFollowingV1 import TrendFollowingV1  # noqa: E402
+from CandleVolumeV1 import CandleVolumeV1  # noqa: E402
 
 START = 266.67
 T0 = datetime(2026, 1, 1, tzinfo=timezone.utc)
@@ -34,7 +34,7 @@ class World:
 def make_bot(world: World, userdir: Path):
     cfg = {"dry_run_wallet": START, "stake_currency": "USDT", "user_data_dir": userdir,
            "bot_name": "unit_bot", "trading_mode": "spot", "timeframe": "1h"}
-    bot = TrendFollowingV1(cfg)
+    bot = CandleVolumeV1(cfg)
     bot.dp = SimpleNamespace(runmode=RunMode.DRY_RUN,
                              ticker=lambda pair: {"last": world.price},
                              get_analyzed_dataframe=lambda *a: (None, None))
