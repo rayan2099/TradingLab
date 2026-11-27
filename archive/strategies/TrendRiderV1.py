@@ -8,7 +8,7 @@
            this only makes positions smaller, never larger than lab_risk allows
 
 Run it on 4h candles: freqtrade ... --timeframe 4h (base.json says 1h and the
-config wins over the strategy). Designed on 2021-2024 only; see docs/PHASE2_RESEARCH.md.
+config wins over the strategy). Designed on 2021-2024 only; see docs/history/PHASE2_RESEARCH.md.
 """
 from lab_regime import add_regime, startup_candles
 from lab_risk import RiskGuardedStrategy

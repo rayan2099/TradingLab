@@ -1,6 +1,6 @@
 """Phase 2: TrendFollowingV1 unchanged, plus the shared uptrend filter (lab_regime.py).
 
-Only new entries are filtered; exits are the V1 exits. See docs/PHASE2_RESEARCH.md.
+Only new entries are filtered; exits are the V1 exits. See docs/history/PHASE2_RESEARCH.md.
 """
 from lab_regime import add_regime, startup_candles
 from lab_risk import RiskGuardedStrategy
