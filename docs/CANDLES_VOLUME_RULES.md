@@ -225,6 +225,10 @@ STOP: below pattern low;  reject trade if stop distance > 3%
           mark that candle's low and exit only on a close below it (false-break filter, g#25823)
   [group] trail: move stop up under each new bullish pattern / volume candle on the LTF
   [group] skip auction volume bars when picking the volume candle (g#25123)
+  [group] pick stop: prior low if within 3%, else pattern low; a >3% adverse move = failed (g#20465-67)
+  [group] profit trailing: at target area drop to 5m, trail under each new positive/volume candle,
+          exit on a 5m bearish engulfing (g#21970-81)
+  [group] skip a bullish engulfing if negative divergence or the opposite zone is supply (g#22441-45)
   [group] quality filters to test: positive RSI divergence at entry; stock above MA200 on 15m;
           market (TASI) not in a negative pattern
 TARGET: next HTF supply zone / previous top (no fixed % in slides)
@@ -246,7 +250,7 @@ TARGET: next HTF supply zone / previous top (no fixed % in slides)
 Source: the discussion group **«احتراف المضاربات اللحظية ٩»**, where students apply what the channel teaches.
 Two accounts matter: **"Mod ."** (Abu Khalid, `@modee_14`, the most active member: about 1,300 of 3,900 messages read so far)
 and **the teacher himself, "أحمد ( أبو عبدالله )"** (`@Ahmed_Abuabullah`). References are group message numbers (`g#N`).
-Coverage so far: **30 Jun – 27 Nov 2026** (messages `g#22700–26794`). Older history is still being read.
+Coverage so far: **4 Mar – 27 Nov 2026** (messages `g#19265–26794`). Older history is still being read.
 Most of Mod's posts are chart images captioned with a stock name and a pattern name. Only the text is captured here.
 
 ### 8.1 Rules confirmed or added by the teacher
@@ -283,4 +287,30 @@ Mod's own simpler version of a "beautiful but complicated" momentum strategy. In
 5. The more candles and % in the first rise, the longer the pullback takes. The fewer, the faster the next leg.
 `g#26578–26614`
 
-> Not yet read: the group's history before 30 Jun 2026 (about 22,700 messages), and the chart images themselves.
+### 8.4 More from Mar – Jun 2026
+**Teacher**
+- **Profit-stop trailing technique** (فنيات رفع الوقف الربحي): once price reaches a target area (e.g. the top of a volume candle on 15 m), **drop one timeframe (to 5 m)**. Move the stop up step by step to the low of each new positive candle: engulfing, then the last positive candle, then the last volume candle, then a doji. A 5 m bearish engulfing then ends the trade. `g#21970–21981`
+- **When a bullish engulfing should NOT be taken**: (1) **negative divergence** is present, or (2) the *opposite zone* is a seller's zone, e.g. a previous top that is also a broken volume candle with a bearish engulfing at the same level. `g#22441–22445`
+- **Stop choice**: the pattern-failure point can be the low of the buying candle or the low of the volume candle. **Both are fine as long as each is under 3 %.** `g#22105`
+- When a nearer selling candle hasn't been closed above yet, some enter on the first close, some wait for the second, and he prefers **splitting the position between the two**. `g#22099`
+- **The first target of a long negative candle setup is that candle's high.** `g#22101`
+- The zone can be drawn on the **same timeframe** as the entry pattern. `g#21979`
+- "Don't chase" is not a rule here. A stock already up can still be a valid setup if the pattern is there. `g#21778`
+- **How to test your strategy**: look at the day's top gainers. If you had flagged most of them beforehand, the strategy works. `g#21784`
+- With equal or near-equal bottoms, look for positive divergence. `g#22201`
+- A selling candle after a gap is measured from the **previous close**. `g#20023`
+- **Scaling in** inside the pattern keeps the average loss under 3 % even when price dips. `g#20469`
+
+**Mod**
+- **Pick the stop by distance**: if the pattern stop is under 3 % and the prior low is close, use the prior low. Otherwise use the pattern stop. The teacher agreed: "that's the correct one". `g#20455–20466`
+- **A drop of more than 3 % = the pattern failed**, even if there's divergence. `g#20467`
+- **A positive pattern that is broken and then recovered is a trap, and the rise afterwards is fast.** `g#20468`
+- **If the candle that broke the stop is itself broken, the bullish pattern has failed.** If the stop was broken only by a wick, move the stop to that wick. `g#19939, 20311, 20359`
+- **A volume candle that price fails to close above means the buyer couldn't beat the seller, so expect a drop.** `g#19766–19767`
+- **Draw a falling trendline on the last two lower highs.** `g#19578`
+- **Fixed-risk money management**: risk 100 to make 300. Three losses (−300) are erased by one win. With two wins and two losses you're +400. You'd need four losers per winner to only break even. `g#19835–19838, 20555`
+- **"Selling-candle strategy" on the intraday chart**, after a daily close above a selling candle: mark the opposite-colour candle that formed before the breakout, and the low the move started from. Selling pressure shows as upper wicks, and the trigger is a close above them. `g#20697–20704`
+- **Stochastic on the hourly** (Mod's own add-on): crossing up from 20 = a rebound in rising stocks; crossing down from 80 = exit. It's not part of the teacher's method. `g#21859`
+- **Always place the stop order as soon as you open the trade.** `g#21671`
+
+> Not yet read: the group's history before 4 Mar 2026, and the chart images themselves.
