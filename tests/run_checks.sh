@@ -74,6 +74,43 @@ echo "== no lookahead bias in any signal strategy"
 grep -E "V1 " "$WORK/la.log" | grep -q " Yes " && { grep -E "V1 " "$WORK/la.log"; echo "FAIL: lookahead bias"; exit 1; }
 echo "   PASS: 5 strategies, has_bias = No"
 
+echo "== Phase 2 strategies load, trade only in an uptrend, and have no lookahead bias"
+"${FT[@]}" --strategy-list TrendFollowingR MeanReversionR MomentumR BreakoutR VolumeAnalysisR \
+  --timerange 20251001- > "$WORK/p2.log" 2>&1 || { tail -20 "$WORK/p2.log"; exit 1; }
+"$PY" - "$WORK/data/binance" <<'PYEOF'
+import sys
+from pathlib import Path
+import pandas as pd
+for f in Path(sys.argv[1]).glob("*-1h.feather"):  # 4h candles for TrendRiderV1
+    h = pd.read_feather(f).set_index("date")
+    h.resample("4h").agg({"open": "first", "high": "max", "low": "min", "close": "last",
+                          "volume": "sum"}).dropna().reset_index() \
+        .to_feather(str(f).replace("-1h.", "-4h."))
+PYEOF
+"${FT[@]}" --timeframe 4h --strategy-list TrendRiderV1 --timerange 20251001- > "$WORK/p2b.log" 2>&1 \
+  || { tail -20 "$WORK/p2b.log"; exit 1; }
+"$PY" "$ROOT/tests/offline_freqtrade.py" lookahead-analysis --userdir "$ROOT/user_data" \
+  --datadir "$WORK/data/binance" --config "$ROOT/user_data/config/base.json" \
+  --backtest-directory "$WORK/la/" --timerange 20260101- \
+  --strategy-list TrendFollowingR MeanReversionR MomentumR BreakoutR VolumeAnalysisR > "$WORK/la2.log" 2>&1
+grep -E "R\.py " "$WORK/la2.log" | grep -q " Yes " && { grep -E "R\.py " "$WORK/la2.log"; echo "FAIL: lookahead bias"; exit 1; }
+"$PY" - "$ROOT" <<'PYEOF'
+import sys
+import pandas as pd
+sys.path.insert(0, sys.argv[1] + "/user_data/strategies")
+from lab_regime import add_regime
+# 300 days falling then 300 days rising: no uptrend while falling, uptrend late in the rise,
+# and a day's regime may only change at midnight from the previous day's close
+d = pd.date_range("2024-01-01", periods=600 * 24, freq="1h", tz="UTC")
+px = [100 - i / 24 * 0.1 if i < 300 * 24 else 70 + (i - 300 * 24) / 24 * 0.3 for i in range(len(d))]
+df = add_regime(pd.DataFrame({"date": d, "close": px}))
+assert not df["uptrend"].iloc[: 300 * 24].any(), "uptrend during a fall"
+assert df["uptrend"].iloc[-24:].all(), "no uptrend at the end of a long rise"
+assert df.groupby(df["date"].dt.date)["uptrend"].nunique().max() == 1, "regime changed intraday"
+print("   PASS: uptrend filter (off in a fall, on in a rise, changes only at day close)")
+PYEOF
+echo "   PASS: 6 Phase 2 strategies backtest, has_bias = No"
+
 echo "== hard 5% halt fires"
 cp "$ROOT/tests/strategies/HaltProbe.py" "$WORK/HaltProbe.py"
 cp "$ROOT/user_data/strategies/lab_risk.py" "$WORK/lab_risk.py"
