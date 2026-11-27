@@ -75,7 +75,7 @@ grep -E "V1 " "$WORK/la.log" | grep -q " Yes " && { grep -E "V1 " "$WORK/la.log"
 echo "   PASS: 5 strategies, has_bias = No"
 
 echo "== Phase 2 strategies load, trade only in an uptrend, and have no lookahead bias"
-"${FT[@]}" --strategy-list TrendFollowingR MeanReversionR MomentumR BreakoutR VolumeAnalysisR \
+"${FT[@]}" --strategy-list TrendFollowingR MeanReversionR MomentumR BreakoutR VolumeAnalysisR CandleVolumeV1 \
   --timerange 20251001- > "$WORK/p2.log" 2>&1 || { tail -20 "$WORK/p2.log"; exit 1; }
 "$PY" - "$WORK/data/binance" <<'PYEOF'
 import sys
@@ -92,8 +92,8 @@ PYEOF
 "$PY" "$ROOT/tests/offline_freqtrade.py" lookahead-analysis --userdir "$ROOT/user_data" \
   --datadir "$WORK/data/binance" --config "$ROOT/user_data/config/base.json" \
   --backtest-directory "$WORK/la/" --timerange 20260101- \
-  --strategy-list TrendFollowingR MeanReversionR MomentumR BreakoutR VolumeAnalysisR > "$WORK/la2.log" 2>&1
-grep -E "R\.py " "$WORK/la2.log" | grep -q " Yes " && { grep -E "R\.py " "$WORK/la2.log"; echo "FAIL: lookahead bias"; exit 1; }
+  --strategy-list TrendFollowingR MeanReversionR MomentumR BreakoutR VolumeAnalysisR CandleVolumeV1 > "$WORK/la2.log" 2>&1
+grep -E "\.py " "$WORK/la2.log" | grep -q " Yes " && { grep -E "\.py " "$WORK/la2.log"; echo "FAIL: lookahead bias"; exit 1; }
 "$PY" - "$ROOT" <<'PYEOF'
 import sys
 import pandas as pd
@@ -109,7 +109,7 @@ assert df["uptrend"].iloc[-24:].all(), "no uptrend at the end of a long rise"
 assert df.groupby(df["date"].dt.date)["uptrend"].nunique().max() == 1, "regime changed intraday"
 print("   PASS: uptrend filter (off in a fall, on in a rise, changes only at day close)")
 PYEOF
-echo "   PASS: 6 Phase 2 strategies backtest, has_bias = No"
+echo "   PASS: 7 Phase 2 strategies backtest, has_bias = No"
 
 echo "== hard 5% halt fires"
 cp "$ROOT/tests/strategies/HaltProbe.py" "$WORK/HaltProbe.py"

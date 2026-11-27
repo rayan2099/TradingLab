@@ -87,6 +87,22 @@ were in a 50/200 uptrend for only a few months of 2025.
 On the test window, candidates 10, 11, 13 and 15 scored 991, 1,013, 997 and 1,010 SAR,
 on 15 to 25 trades each. None passes. Only #11 is kept in the repo.
 
+## Idea 3: candles + volume (`CandleVolumeV1`, requested 2026-11-27)
+
+Bullish reversal candles (hammer, bullish engulfing, morning star, piercing line), on
+volume of at least 2x the 20-candle average, at a fresh 10-candle low, during an uptrend.
+Exit at +6%, at the 4% stop, or after 3 days. All rules were fixed before testing.
+
+| Version | 2021-24 | Test window 2025-26 |
+|---|---|---|
+| 1h, uptrend filter (kept) | 1,038 SAR, 81 trades, PF 1.09, DD 12.5% | 1,012 SAR, 29 trades, marked-to-market DD 6.0% |
+| 1h, no filter | 835, 270 trades | 981, DD 15.9% |
+| 4h, uptrend filter | 998, 13 trades | 1,006, 8 trades, DD 2.3% |
+| 4h, no filter | 1,096, 46 trades, DD 5.6% | 987, DD 8.6% |
+
+None of these shows an edge (PF close to 1 everywhere). Rules taken from your own
+material can be tested the same way.
+
 ## Why the gate is so hard as it is set up now
 
 To pass, a strategy needs all of the following at once over 23 months, long-only,
