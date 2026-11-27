@@ -1,4 +1,6 @@
-# Trading Lab Phase 1 - paper / historical only.
+# Trading Lab - the الملخص 9 candles & volume method, tested on paper / history only.
+# The rules being coded are in docs/CANDLES_VOLUME_RULES.md; what is coded so far is in
+# docs/COURSE_TO_CODE.md.
 #
 # Two ways to run, same configs and strategies:
 #   local (default) : Python virtualenv, no Docker needed  -> make setup / backtest / paper-start
@@ -13,11 +15,13 @@ FT        := $(VENV)/bin/freqtrade
 CFG       := --userdir user_data --config user_data/config/base.json
 TIMERANGE ?= 20250101-
 DAYS      ?= 730
-STRATS    := TrendFollowingV1 MeanReversionV1 MomentumV1 BreakoutV1 VolumeAnalysisV1 MachineLearningV1 BuyAndHoldBenchmark
-SIGNAL_STRATS := TrendFollowingV1 MeanReversionV1 MomentumV1 BreakoutV1 VolumeAnalysisV1
+# Strategies coded from the course. Add each new course strategy here.
+COURSE_STRATS := CandleVolumeV1
+STRATS    := $(COURSE_STRATS) BuyAndHoldBenchmark
+SIGNAL_STRATS := $(COURSE_STRATS)
 
 .PHONY: help check setup download data-check backtest analyze scorecard test \
-        archive-data phase2 phase2-insample \
+        archive-data course-insample \
         paper-start paper-stop paper-status paper-scorecard \
         docker-pull docker-download docker-backtest docker-up docker-down docker-logs
 
@@ -41,46 +45,37 @@ download: check  ## download 1h candles for BTC/ETH/SOL (public data, no account
 data-check:      ## show the downloaded date range per pair
 	$(FT) list-data $(CFG) --show-timerange
 
-backtest: check  ## backtest all slots + benchmark, then print the SAR scorecard
+backtest: check  ## backtest the course strategies + benchmark, then print the SAR scorecard
 	rm -f user_data/backtest_results/risk_breaches_*.json
 	$(FT) backtesting $(CFG) --strategy-list $(STRATS) --timerange $(TIMERANGE) --export trades --breakdown month
 	$(VENV)/bin/python scripts/scorecard.py backtest
 
-analyze: check   ## lookahead-bias and recursive-indicator checks for every signal strategy
+analyze: check   ## lookahead-bias and recursive-indicator checks for every course strategy
 	$(FT) lookahead-analysis $(CFG) --strategy-list $(SIGNAL_STRATS) --timerange $(TIMERANGE)
 	for s in $(SIGNAL_STRATS); do $(FT) recursive-analysis $(CFG) --strategy $$s --timerange $(TIMERANGE) || exit 1; done
 
 scorecard:       ## scorecard for the latest backtest
 	$(VENV)/bin/python scripts/scorecard.py backtest
 
-# ---- Phase 2 strategy lab -----------------------------------------------------
-# Design window 2021-2024, untouched test window = the scorecard period (2025 on).
+# ---- Research protocol ---------------------------------------------------------
+# Design window 2021-2024; the scorecard period (2025 on) is the untouched test window.
 # The uptrend filter needs 200 days of history before the window: use archive-data.
 FTRUN     ?= $(FT)
-REGIME_STRATS := TrendFollowingR MeanReversionR MomentumR BreakoutR VolumeAnalysisR
 INSAMPLE  ?= 20210101-20250101
-OOS       ?= 20250101-
 
 archive-data:    ## BTC/ETH/SOL 1h+4h+1d since 2020 from Binance's public archive (no account)
 	$(VENV)/bin/python scripts/fetch_binance_archive.py --start 2020-01
 
-phase2: check    ## Phase 2 candidates on the scorecard period, with scorecards and drawdown checks
+course-insample: check ## course strategies on the 2021-2024 design window (tune here, never on 2025+)
 	rm -f user_data/backtest_results/risk_breaches_*.json
-	$(FTRUN) backtesting $(CFG) --strategy-list $(REGIME_STRATS) BuyAndHoldBenchmark --timerange $(OOS) --export trades
+	$(FTRUN) backtesting $(CFG) --strategy-list $(STRATS) --timerange $(INSAMPLE) --export trades
 	$(VENV)/bin/python scripts/scorecard.py backtest
-	for s in $(REGIME_STRATS); do $(VENV)/bin/python scripts/mtm_drawdown.py $$s; done
-	rm -f user_data/backtest_results/risk_breaches_*.json
-	$(FTRUN) backtesting $(CFG) --timeframe 4h --strategy-list TrendRiderV1 BuyAndHoldBenchmark --timerange $(OOS) --export trades
-	$(VENV)/bin/python scripts/scorecard.py backtest
-	$(VENV)/bin/python scripts/mtm_drawdown.py TrendRiderV1
-
-phase2-insample: ## the same on the 2021-2024 design window
-	$(MAKE) phase2 OOS=$(INSAMPLE)
+	for s in $(COURSE_STRATS); do $(VENV)/bin/python scripts/mtm_drawdown.py $$s; done
 
 test:            ## offline test suite (synthetic data, no network)
 	PYTHON=$(VENV)/bin/python bash tests/run_checks.sh
 
-paper-start: check  ## start the 7 paper bots locally (dashboards on 127.0.0.1:8081-8087)
+paper-start: check  ## start the course paper bots + benchmark locally (dashboards from 127.0.0.1:8081)
 	bash scripts/paper.sh start
 
 paper-stop:      ## stop the local paper bots

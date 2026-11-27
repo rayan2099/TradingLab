@@ -1,0 +1,5 @@
+{
+  "bot_name": "course_candle_volume",
+  "strategy": "CandleVolumeV1",
+  "db_url": "sqlite:////freqtrade/user_data/db/course_candle_volume.sqlite"
+}

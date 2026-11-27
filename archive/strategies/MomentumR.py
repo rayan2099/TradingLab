@@ -1,15 +1,15 @@
-"""Phase 2: BreakoutV1 unchanged, plus the shared uptrend filter (lab_regime.py).
+"""Phase 2: MomentumV1 unchanged, plus the shared uptrend filter (lab_regime.py).
 
-Only new entries are filtered; exits are the V1 exits. See docs/PHASE2_RESEARCH.md.
+Only new entries are filtered; exits are the V1 exits. See docs/history/PHASE2_RESEARCH.md.
 """
 from lab_regime import add_regime, startup_candles
 from lab_risk import RiskGuardedStrategy
-from BreakoutV1 import BreakoutV1
+from MomentumV1 import MomentumV1
 
 
-class BreakoutR(BreakoutV1, RiskGuardedStrategy):
+class MomentumR(MomentumV1, RiskGuardedStrategy):
     startup_candle_count = startup_candles("1h")
-    stoploss = -0.04  # same as V1 (restated for the safety gate)
+    stoploss = -0.035  # same as V1 (restated for the safety gate)
 
     def populate_indicators(self, df, metadata):
         return add_regime(super().populate_indicators(df, metadata))

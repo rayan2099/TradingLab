@@ -33,13 +33,13 @@ If `make download` fails with a connection or "restricted location" error, set
 ## 3. Paper trading
 
 ```bash
-make paper-start      # 7 bots, each with a virtual 266.67 USDT (SAR 1,000)
+make paper-start      # course bots + benchmark, each with a virtual 266.67 USDT (SAR 1,000)
 make paper-status     # running / stopped / HALTED
 make paper-scorecard  # progress in SAR towards 1,100
 make paper-stop
 ```
 
-Dashboards: open the addresses in `CREDENTIALS.txt` (http://127.0.0.1:8081 to 8087) and log in.
+Dashboards: open the addresses in `CREDENTIALS.txt` (one per bot, from http://127.0.0.1:8081) and log in.
 They only listen on this Mac. Bots run while the Mac is awake; logs are in `user_data/logs/`.
 
 If a bot hits the 5% drawdown halt it sells everything and stops. `make paper-status` shows
