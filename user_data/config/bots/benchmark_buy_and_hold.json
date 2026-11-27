@@ -1,0 +1,5 @@
+{
+  "bot_name": "benchmark_buy_and_hold",
+  "strategy": "BuyAndHoldBenchmark",
+  "db_url": "sqlite:////freqtrade/user_data/db/benchmark_buy_and_hold.sqlite"
+}

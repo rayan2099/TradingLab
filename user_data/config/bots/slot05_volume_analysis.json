@@ -1,0 +1,5 @@
+{
+  "bot_name": "slot05_volume_analysis",
+  "strategy": "VolumeAnalysisV1",
+  "db_url": "sqlite:////freqtrade/user_data/db/slot05_volume_analysis.sqlite"
+}

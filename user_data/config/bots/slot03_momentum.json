@@ -1,0 +1,5 @@
+{
+  "bot_name": "slot03_momentum",
+  "strategy": "MomentumV1",
+  "db_url": "sqlite:////freqtrade/user_data/db/slot03_momentum.sqlite"
+}

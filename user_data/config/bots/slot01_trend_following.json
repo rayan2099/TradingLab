@@ -1,0 +1,5 @@
+{
+  "bot_name": "slot01_trend_following",
+  "strategy": "TrendFollowingV1",
+  "db_url": "sqlite:////freqtrade/user_data/db/slot01_trend_following.sqlite"
+}

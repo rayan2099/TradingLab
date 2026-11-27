@@ -1,0 +1,61 @@
+# Trading Lab Phase 1 - paper trading only.
+# Every container runs scripts/safety_check.py first and refuses to start if it fails.
+#
+#   make up          start the 6 strategy bots + benchmark in dry-run
+#   make download    download BTC/ETH/SOL history (public data, no keys)
+#   make backtest    backtest all slots against the benchmark
+
+x-freqtrade: &freqtrade
+  image: freqtradeorg/freqtrade:2026.10
+  restart: unless-stopped
+  volumes:
+    - ./user_data:/freqtrade/user_data
+    - ./scripts:/freqtrade/scripts:ro
+  entrypoint: ["/bin/sh", "-c"]
+  logging:
+    driver: json-file
+    options: {max-size: "10m", max-file: "3"}
+
+x-trade: &trade_cmd >-
+  python /freqtrade/scripts/safety_check.py &&
+  freqtrade trade
+  --config /freqtrade/user_data/config/base.json
+  --config /freqtrade/user_data/config/bots/$${BOT}.json
+  --logfile /freqtrade/user_data/logs/$${BOT}.log
+
+services:
+  slot01_trend_following:
+    <<: *freqtrade
+    environment: {BOT: slot01_trend_following}
+    command: [*trade_cmd]
+  slot02_mean_reversion:
+    <<: *freqtrade
+    environment: {BOT: slot02_mean_reversion}
+    command: [*trade_cmd]
+  slot03_momentum:
+    <<: *freqtrade
+    environment: {BOT: slot03_momentum}
+    command: [*trade_cmd]
+  slot04_breakout:
+    <<: *freqtrade
+    environment: {BOT: slot04_breakout}
+    command: [*trade_cmd]
+  slot05_volume_analysis:
+    <<: *freqtrade
+    environment: {BOT: slot05_volume_analysis}
+    command: [*trade_cmd]
+  slot06_machine_learning:
+    <<: *freqtrade
+    environment: {BOT: slot06_machine_learning}
+    command: [*trade_cmd]
+  benchmark_buy_and_hold:
+    <<: *freqtrade
+    environment: {BOT: benchmark_buy_and_hold}
+    command: [*trade_cmd]
+
+  # One-off jobs: docker compose run --rm tools "<command>"
+  tools:
+    <<: *freqtrade
+    restart: "no"
+    profiles: ["tools"]
+    command: ["python /freqtrade/scripts/safety_check.py"]

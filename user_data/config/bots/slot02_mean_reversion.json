@@ -1,0 +1,5 @@
+{
+  "bot_name": "slot02_mean_reversion",
+  "strategy": "MeanReversionV1",
+  "db_url": "sqlite:////freqtrade/user_data/db/slot02_mean_reversion.sqlite"
+}

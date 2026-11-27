@@ -1,0 +1,5 @@
+{
+  "bot_name": "slot06_machine_learning",
+  "strategy": "MachineLearningV1",
+  "db_url": "sqlite:////freqtrade/user_data/db/slot06_machine_learning.sqlite"
+}

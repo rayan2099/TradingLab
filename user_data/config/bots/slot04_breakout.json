@@ -1,0 +1,5 @@
+{
+  "bot_name": "slot04_breakout",
+  "strategy": "BreakoutV1",
+  "db_url": "sqlite:////freqtrade/user_data/db/slot04_breakout.sqlite"
+}
