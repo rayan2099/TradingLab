@@ -183,7 +183,7 @@ the top of a long selling candle (higher or same TF), the top of a volume candle
 
 - **Stop ≤ 3 %** from entry (`msg 43 @2:00`).
 - Stop placement used in the examples: under the pattern's low, under the selling candle's low (`msg 112`), or under the lowest point between the broken candle and the close-back candle (`msg 110`, `msg 67 @28:00`).
-- **Target:** the slides don't give a fixed rule. The examples measure +3 % to +8 % moves to the next opposing zone (supply / previous top), e.g. `msg 43 @7:20` +7.6 %, `@15:35` +4.9 %, `@30:50` +5.7 %. *Exact exit rule: to be confirmed in the audio pass.*
+- **Target:** the slides don't give a fixed rule. The examples measure +3 % to +8 % moves to the next opposing zone (supply / previous top), e.g. `msg 43 @7:20` +7.6 %, `@15:35` +4.9 %, `@30:50` +5.7 %. *Confirmed in the practice group (§8.7): target = 2–3× the stop, exits on intraday negative patterns, stop = lowest low between the pattern line and the close above it.*
 - Timeframes used: weekly/daily for zones, **15 m** (sometimes 5 m) for entries. Market in all examples: **Saudi stocks (Tadawul)**, TickerChart.
 
 ---
@@ -236,6 +236,18 @@ STOP: below pattern low;  reject trade if stop distance > 3%
   [group] gap-up open: limit buy at the gap candle's lower wick, stop below it (g#17478)
   [group] zone touched many times = weaker; a pattern must complete in the zone, else wait (g#17014, 16037)
   [group] skip LTF false-break entries when HTF candles show bearish engulfing (g#16455)
+  [group] STOP (teacher's definition) = lowest low between the pattern's line and the candle that
+          closed above it; must be <= 3%; failure only on a close below it (g#2137, 2697)
+  [group] entry = close above the pattern line; engulfing = enter at its own close (g#2296)
+  [group] news gap-up + high volume: exit on a close below the candle body low (g#3221)
+  [group] Mod gap-up strategy: limit buy at the gap candle's low on the first return, stop = close
+          below it, target +2-3% (g#7147)
+  [group] Mod volume-MA strategy: vol > SMA(vol,20) on a green LTF candle inside an HTF demand zone,
+          enter on a close above its high; next qualifying candle moves the line (g#10561, 10751)
+  [group] daily screener: EMA7>EMA14>EMA20>EMA35>EMA50, close>EMA7, RSI14>=50, ROC12>=0 (g#13186)
+  [group] time stop: exit after 3 trading days with neither stop nor target hit (g#10822)
+  [group] market quality: first-hour traded value vs recent days (teacher: ~1bn SAR) (g#3872)
+TARGET (group): 2-3x the stop distance (g#4353); next supply / top
 TARGET: next HTF supply zone / previous top (no fixed % in slides)
 ```
 
@@ -253,9 +265,9 @@ TARGET: next HTF supply zone / previous top (no fixed % in slides)
 ## 8. Practice group: answers from "Mod" and the teacher — `[group]`
 
 Source: the discussion group **«احتراف المضاربات اللحظية ٩»**, where students apply what the channel teaches.
-Two accounts matter: **"Mod ."** (Abu Khalid, `@modee_14`, the most active member: about 1,300 of 3,900 messages read so far)
+Two accounts matter: **"Mod ."** (Abu Khalid, `@modee_14`, the most active member)
 and **the teacher himself, "أحمد ( أبو عبدالله )"** (`@Ahmed_Abuabullah`). References are group message numbers (`g#N`).
-Coverage so far: **16 Nov 2025 – 27 Nov 2026** (messages `g#14587–26794`). Older history is still being read.
+Coverage: **the whole group, 30 Jun 2025 – 27 Nov 2026** (messages `g#2–26794`).
 Most of Mod's posts are chart images captioned with a stock name and a pattern name. Only the text is captured here.
 
 ### 8.1 Rules confirmed or added by the teacher
@@ -375,4 +387,50 @@ Mod's own simpler version of a "beautiful but complicated" momentum strategy. In
 
 **Mod's routine**: analyze the whole market at night and set alerts; in the morning watch the **top gainers**. `g#15885, 16838`
 
-> Not yet read: the group's history before 16 Nov 2025, and the chart images themselves.
+### 8.7 The course period and after: Jul – Oct 2025
+The group opened on 30 Jun 2025 with the course itself (lessons on 5–16 Jul 2025). In this period the teacher answered almost every question, so these are the most direct statements of the rules.
+
+**Candle definitions confirmed** (teacher)
+- **The four positive candles** `g#1264` (matches §1.1):
+  1. **Buying candle**, change ≥ 3 % on the daily. Lines at its high and low. Positive **as long as price holds its low**.
+  2. **Buying candle that opened with a gap down**: measure from its **open to its close**; ≥ 3 % counts. Its low line is the **previous close**. `g#997, 1000, 4346`
+  3. **Bullish engulfing**: zone from its low to its **close** (not its high). No % or volume requirement. **Decided at its own close**; no confirming close needed («أحادية القرار»). `g#211, 853, 1093`
+  4. **Volume candle**: lines at high and low. Positive on a **close above its high** without breaking its low. Its change % doesn't matter. `g#449`
+- In short: buying candle → hold its low; engulfing → its close; volume candle → close above it. **"Close above a buying candle" is not an entry pattern.** `g#868, 2385, 4340`
+- Selling-candle % = previous close → this close (`g#4764`). A hollow red candle whose open→close is ≥ 3 % still counts as buying. `g#454, 526`
+- With a gap, buying/selling/volume candles are measured from the **previous close**. Pure shape patterns (inside bar, doji, spinning top, fakey) **ignore the gap**. `g#3260, 4232, 5241`
+- Engulfing: the teacher accepts the **non-ideal** kind (body only), unless the engulfed candle has a very long upper wick. If an engulfing has high volume *and* a long upper wick, the cautious wait for a close above the wick. `g#380, 1597, 285`
+- **Fakey** needs a mother candle, **at least one candle inside it**, then a break of the mother's low (wick or body), then a **close above the mother's high**. If the very next candle breaks the mother, it is not a fakey. Inside bar = mother not broken. `g#2263, 2429, 2454, 4086`
+- On the 15 m chart a buying candle is **≥ 1 %**. `g#2446`
+
+**Entry and stop** (teacher)
+- Every pattern: draw the line at the high and **enter on a close above it**. The only exception is the engulfing, which is decided at its own close. `g#2296`
+- **Stop = the lowest price between the pattern's line (e.g. the selling candle's high) and the candle that closed above it.** It must be **≤ 3 %**. It is set only after the pattern completes, and the trade has failed only on a **close below** it. `g#2137, 2367, 2482, 2697`
+- No entry just because price reached a zone: **only on an intraday bullish pattern**. Zones come from the **1 h chart and higher**. `g#364, 1975, 1985`
+- If the pattern is complete you can wait for a pullback test, or split the entry (especially if the stop is ≥ 2 %). Never enter with the whole portfolio. `g#1207, 3487, 5582`
+- **Speculative target = 2–3× the stop.** After a close above a doji, the target is the gap top if it is ≥ 3 % away; if it is only ~1 %, split or wait for the close above the selling candle. `g#4353, 5666`
+- Preferred entry TF is the **15 m**; drop to 5 m only when there is momentum at the start of the 15 m candle. Smaller TF = closer stop but more risk. `g#4769, 4257, 1919`
+
+**Exits** (teacher): close below a shooting star; a bearish engulfing (exit at its close); a close below a volume candle; a close below a buying candle; a close below a doji after a rise. You can exit in two batches (shooting star, then buying candle). **"Never regret a profit."** Sell one tick before resistance. `g#1270–1273, 1607, 4033, 1206, 1573`
+
+**Stop-break handling** (teacher, lesson 6): when a candle closes below the stop, mark that candle's low and trigger the stop only on a **close below it**. If there is **positive divergence**, the break is likely false; at worst exit at break-even when price comes back. Profit-trailing is done on a **TF smaller** than the entry TF, exiting on a bearish engulfing. `g#4036, 4039, 4037, 4608, 5401`
+
+**News gaps** (teacher): gap-**up** on good news with high volume → line at the candle's body low, ignoring the gap; a close below it is an exit (the "good-news trap"). Gap-**down** on bad news with high volume → line at the body top; a close above is positive and the first target is the gap fill. `g#3221, 3327, 4767, 7486`
+
+**Market and stock filters** (teacher)
+- Market quality: traded value in the first hour **above about 1 bn SAR**, compared with the previous days. `g#3872, 4018`
+- He avoids REITs, cement, banks, petrochemicals, large caps and non-sharia stocks; he trades speculative stocks. He holds nothing overnight before an earnings announcement. `g#3551, 4765, 7445`
+- Don't open trades against tops, especially a top visited for the first time; check for negative divergence when tops are close together. `g#3686, 3980, 7690`
+- Daily homework: for top gainers, find on the 15 m (two weeks) the pattern that started the move; for top losers, find the exit signal. `g#2121, 5609`
+
+**Mod's strategies from this period**
+- **Gap-up strategy** `g#6521, 7147, 7184, 7186`: draw a line at the **bottom of a gap-up candle**. When price comes back to it, **buy directly with no pattern**. Stop = a close below that candle (very close). Target 2–3 % the same day. Fast and risky; it rarely breaks on the first return.
+- **Volume-MA candle strategy** (Sep 2025) `g#10389–10760, 10983, 10984; explained by members g#10561, 10746`: add a **20-period moving average on volume**. With the stock in a demand zone, take the **first green candle whose volume bar crosses above the volume MA**. Draw a line at its high and **enter on a close above it**. If price doesn't close above it and another such candle appears, move the line to the new one. The stop is the demand zone just below, so it is very close. The aim is to get in **before** the classic pattern (fakey, false break) completes.
+- **Daily EMA screener** `g#13186`: EMA7 > EMA14 > EMA20 > EMA35 > EMA50, close > EMA7, RSI(14) ≥ 50, ROC(12) ≥ 0. He uses it only to find stocks; a single MA is fine too.
+- Hollow candle on the daily `g#12484`: a close above the hollow candle into a volume candle's range → target the volume candle's top, stop under the hollow candle.
+- In sharp declines **false breaks rarely work; "close above a volume candle" works best.** Stocks that broke tops on higher TFs give the most. `g#9322, 9340`
+- Bad market: accept +1–1.5 %, small size; spread money over **at least 3 trades**. `g#9283, 12861, 12197`
+- He gives a trade **3 trading days**: no stop hit and no target → exit. On small TFs he may place the stop on the 1 h or 30 m chart. `g#10822, 11496`
+- After a bullish pattern, if a bearish engulfing follows, wait for a close above it. `g#8173`
+
+> The group has now been read from its first message (30 Jun 2025) to 27 Nov 2026. Chart images are still not read.
