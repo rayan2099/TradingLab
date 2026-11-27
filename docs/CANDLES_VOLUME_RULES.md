@@ -231,6 +231,11 @@ STOP: below pattern low;  reject trade if stop distance > 3%
   [group] skip a bullish engulfing if negative divergence or the opposite zone is supply (g#22441-45)
   [group] quality filters to test: positive RSI divergence at entry; stock above MA200 on 15m;
           market (TASI) not in a negative pattern
+  [group] market-scaled exits: good market -> sell 1/2 or 1/4 at +3%, then 1/4 per +2%;
+          bad market (TASI negative) -> take +1..1.5% or skip trades / size ~5% (g#15776-87)
+  [group] gap-up open: limit buy at the gap candle's lower wick, stop below it (g#17478)
+  [group] zone touched many times = weaker; a pattern must complete in the zone, else wait (g#17014, 16037)
+  [group] skip LTF false-break entries when HTF candles show bearish engulfing (g#16455)
 TARGET: next HTF supply zone / previous top (no fixed % in slides)
 ```
 
@@ -250,7 +255,7 @@ TARGET: next HTF supply zone / previous top (no fixed % in slides)
 Source: the discussion group **«احتراف المضاربات اللحظية ٩»**, where students apply what the channel teaches.
 Two accounts matter: **"Mod ."** (Abu Khalid, `@modee_14`, the most active member: about 1,300 of 3,900 messages read so far)
 and **the teacher himself, "أحمد ( أبو عبدالله )"** (`@Ahmed_Abuabullah`). References are group message numbers (`g#N`).
-Coverage so far: **7 Jan – 27 Nov 2026** (messages `g#17490–26794`). Older history is still being read.
+Coverage so far: **16 Nov 2025 – 27 Nov 2026** (messages `g#14587–26794`). Older history is still being read.
 Most of Mod's posts are chart images captioned with a stock name and a pattern name. Only the text is captured here.
 
 ### 8.1 Rules confirmed or added by the teacher
@@ -339,4 +344,35 @@ Mod's own simpler version of a "beautiful but complicated" momentum strategy. In
 - For TASI or any stock far from its moving average, draw the Fib from top to bottom (teacher). `g#18608`
 - **A speculator exits as soon as a negative pattern forms on the intraday chart**, without waiting for the daily. `g#18562`
 
-> Not yet read: the group's history before 7 Jan 2026, and the chart images themselves.
+### 8.6 More from Nov 2025 – Jan 2026
+**Profit-taking depends on the market** (Mod, `g#14742–14744, 15778–15787, 17385–17386`):
+- **Good market**: first target **+3 % on half or a quarter** of the position, then sell another quarter at each further +2 %. The total can pass +5 %.
+- **Bad market** (TASI breaking yearly lows): **+1 to 1.5 % is a good result**; selling everything at +1 % is fine.
+- Hold a winner with a **raised stop** instead of hopping between stocks; you may buy the same stock back later at a higher price.
+
+**Sizing and stops in a bad market** (Mod, `g#15773–15776, 14780–14782, 17141`):
+- **Never enter without a stop**, and know it before you enter. A 3 % stop beats waiting through a 10 % drop.
+- If TASI is negative, **don't trade at all** until it proves otherwise. If you must, use **about 5 % of the portfolio**. Mod himself opened no trades for over a month in a falling market.
+- In a good, rising market, with all higher TFs positive, he may give a broken stop **up to 3 %** of room. `g#15774`
+
+**Gaps** (Mod, `g#17478, 16925, 16931, 15154`):
+- **Big gap-up open**: put the buy order at the **lower wick** of the gap candle. That wick is also the stop if it breaks. Take a speculative target.
+- A gap that **fills** is negative. A **close above the candle that made the gap** is positive.
+
+**Zones, supports and patterns**
+- **A long lower wick means the stock is at a support**; go find that support. `g#15753`
+- **A support visited many times becomes fragile** and is easier to break. `g#17014`
+- At a demand zone, **the entry pattern must complete**. If it doesn't, wait for a pattern at the next zone down. `g#16031–16037`
+- **The strategy candle must be at a support**, like any pattern. `g#16916`
+- **Failed inside bar → fakey**: if an inside bar completes, price breaks its stop, then **closes back above** the line, it becomes a fakey pattern. `g#15522`
+- **Negative higher TFs override a lower-TF false break**: with bearish engulfing candles on the big TFs, the drop continued even after a false break completed. `g#16429, 16455`
+- **RSI above 50 means more momentum.** `g#14866`
+- Daily uptrend touching the **MA50**: drop to the 1 h chart and look for a setup there. `g#14665`
+
+**Teacher**
+- Use the pattern low as the stop. If it breaks, apply the false-stop-break techniques; if price keeps rising, use profit-trailing. **"The best TF for me is the 15 m."** You can also drop to a smaller TF to find a pattern with a clear stop. `g#17085–17086`
+- One false-stop-break technique: **positive divergence** between the pattern low and the candle that broke it. `g#15235`
+
+**Mod's routine**: analyze the whole market at night and set alerts; in the morning watch the **top gainers**. `g#15885, 16838`
+
+> Not yet read: the group's history before 16 Nov 2025, and the chart images themselves.
