@@ -1,61 +1,53 @@
 # Running Trading Lab on a Mac
 
-Works on Apple silicon and Intel Macs (the Freqtrade image is multi-arch).
+Works on Apple silicon and Intel. Needs Python 3.11+ (`python3 --version`), `make`
+(`xcode-select --install` if missing) and about 3 GB of free disk. Docker is optional.
 
-## 1. Docker Desktop
+## 1. Install
 
 ```bash
-docker --version
-docker compose version
+cd ~/Developer/trading-lab        # or wherever you cloned github.com/rayan2099/TradingLab
+make setup
 ```
 
-If either fails, install Docker Desktop from https://www.docker.com/products/docker-desktop/
-and open it once so the engine is running (whale icon in the menu bar).
-Recommended in Docker Desktop → Settings → Resources: 4 CPUs, 4 GB memory.
+This creates `.venv` with the pinned Freqtrade, installs the FreqUI dashboard, and writes
+your local dashboard login to `user_data/config/local/CREDENTIALS.txt` (never committed).
 
-## 2. Get the repo
-
-Clone it (once it is on GitHub) or copy the `trading-lab` folder, then:
+## 2. Data, checks and backtest
 
 ```bash
-cd trading-lab
-make check
-```
-
-You should see `Safety check passed: dry-run, spot, no keys, no leverage, no shorts, stops within limit.`
-
-`make` ships with the Xcode command line tools. If it is missing: `xcode-select --install`.
-
-## 3. Historical data and first backtest
-
-```bash
-make pull         # ~1 GB image, first time only
 make download     # 2 years of 1h candles for BTC, ETH, SOL (public data, no account)
-make backtest     # prints a STRATEGY SUMMARY table; compare every slot with BuyAndHoldBenchmark
+make data-check   # confirm the date range per pair
+make test         # offline test suite, should end with ALL CHECKS PASSED
+make analyze      # lookahead-bias and recursive-indicator checks on real data
+make backtest     # STRATEGY SUMMARY + SAR scorecard (copy in user_data/reports/)
 ```
 
-Change the window with `make backtest TIMERANGE=20240101-20250101` or
-download more history with `make download DAYS=1095`.
+Change the window with `make backtest TIMERANGE=20240101-20250101`, or get more history
+with `make download DAYS=1095`.
 
-Results are saved in `user_data/backtest_results/`.
+If `make download` fails with a connection or "restricted location" error, set
+`exchange.name` in `user_data/config/base.json` to another spot exchange Freqtrade supports
+(for example `okx`) and run it again. Only public candles are affected; no account is used.
 
-If `make download` fails with a connection or "restricted location" error, Binance's
-public API is not reachable from your network. Switch `exchange.name` in
-`user_data/config/base.json` to another exchange Freqtrade supports for spot data
-(for example `okx` or `bybit`) and run it again. This only affects where public
-candles come from; no account is used.
-
-## 4. Paper trading
+## 3. Paper trading
 
 ```bash
-make up       # starts 7 bots, each with a virtual 266.67 USDT (SAR 1,000)
-make status   # all 7 should be "running"
-make logs     # follow what they do (Ctrl+C to stop following)
-make down     # stop everything
+make paper-start      # 7 bots, each with a virtual 266.67 USDT (SAR 1,000)
+make paper-status     # running / stopped / HALTED
+make paper-scorecard  # progress in SAR towards 1,100
+make paper-stop
 ```
 
-Each bot keeps its trades in `user_data/db/<bot>.sqlite` and logs in `user_data/logs/`.
-Bots only run while the Mac is awake and Docker is open. A VPS for 24/7 running is a later step.
+Dashboards: open the addresses in `CREDENTIALS.txt` (http://127.0.0.1:8081 to 8087) and log in.
+They only listen on this Mac. Bots run while the Mac is awake; logs are in `user_data/logs/`.
 
-If a bot hits the 5% drawdown halt, it closes its positions and stops trading. A file appears
-in `user_data/risk_state/`. Review what happened before deleting it; deleting it resumes trading.
+If a bot hits the 5% drawdown halt it sells everything and stops. `make paper-status` shows
+HALTED and a file appears in `user_data/risk_state/`. Review what happened before deleting
+that file; deleting it resumes trading. Deleting `<bot>.state.json` resets the drawdown peak,
+which is a risk-limit change and needs a human decision.
+
+## Docker (optional, for an always-on server later)
+
+`make docker-pull`, `make docker-download`, `make docker-backtest`, `make docker-up`,
+`make docker-down`. Same configs and safety gate; no dashboards in this mode.

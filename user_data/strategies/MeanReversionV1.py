@@ -1,6 +1,6 @@
 """Slot 02 - Mean reversion: oversold dips below the lower Bollinger band in an uptrend."""
 import talib.abstract as ta
-import freqtrade.vendor.qtpylib.indicators as qtpylib
+from technical import qtpylib
 from lab_risk import RiskGuardedStrategy
 
 

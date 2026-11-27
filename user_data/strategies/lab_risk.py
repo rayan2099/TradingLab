@@ -38,6 +38,7 @@ RISK_PER_TRADE = 0.01  # a stopped-out trade costs at most ~1% of equity
 FEE_BUFFER = 0.003  # round-trip fees + slippage assumed per trade
 MAX_TRADE_STOPLOSS = 0.05  # no single trade may risk more than 5% of its stake
 MAX_LEVERAGE = 1.0
+LIVE_CHECK_SECONDS = 30  # paper/live drawdown check interval
 # -----------------------------------------------------------------------------
 
 HALT_EXIT_TAG = "risk_halt_max_drawdown"
@@ -61,9 +62,10 @@ class RiskGuardedStrategy(IStrategy):
             )
         if self.config.get("trading_mode", "spot") != "spot":
             raise RuntimeError("Trading Lab Phase 1 is spot only")
-        self._peak_equity = self._starting_capital()
         self._halted = False
         self._halt_file = self._halt_path()
+        self._state_file = self._state_path()
+        self._peak_equity = max(self._starting_capital(), self._load_peak())
         self._breaches: list[dict] = []
         self._in_breach = False
         if self._halt_file and self._halt_file.exists():
@@ -87,7 +89,39 @@ class RiskGuardedStrategy(IStrategy):
         name = self.config.get("bot_name", self.__class__.__name__)
         return Path(self.config["user_data_dir"]) / "risk_state" / f"{name}.halted.json"
 
+    def _state_path(self) -> Path | None:
+        if self._is_backtest():
+            return None
+        name = self.config.get("bot_name", self.__class__.__name__)
+        return Path(self.config["user_data_dir"]) / "risk_state" / f"{name}.state.json"
+
+    def _load_peak(self) -> float:
+        """Peak equity survives restarts, so a restart can never reset the drawdown."""
+        if self._state_file and self._state_file.exists():
+            try:
+                return float(json.loads(self._state_file.read_text())["peak_equity"])
+            except (ValueError, KeyError, TypeError):
+                logger.error("Unreadable risk state %s - refusing to trade.", self._state_file)
+                self._halted = True
+        return 0.0
+
+    def _save_peak(self) -> None:
+        if not self._state_file:
+            return
+        self._state_file.parent.mkdir(parents=True, exist_ok=True)
+        tmp = self._state_file.with_suffix(".tmp")
+        tmp.write_text(json.dumps({"peak_equity": round(self._peak_equity, 6),
+                                   "starting_capital": self._starting_capital()}))
+        tmp.replace(self._state_file)
+
     def _last_close(self, pair: str) -> float | None:
+        if not self._is_backtest():
+            try:  # paper / live: mark to the latest traded price
+                last = self.dp.ticker(pair).get("last")
+                if last:
+                    return float(last)
+            except Exception:  # noqa: BLE001 - fall back to the last candle
+                pass
         df, _ = self.dp.get_analyzed_dataframe(pair, self.timeframe)
         if df is None or df.empty:
             return None
@@ -107,7 +141,9 @@ class RiskGuardedStrategy(IStrategy):
 
     def current_drawdown(self) -> float:
         equity = self._equity()
-        self._peak_equity = max(getattr(self, "_peak_equity", equity), equity)
+        if equity > self._peak_equity:
+            self._peak_equity = equity
+            self._save_peak()
         if self._peak_equity <= 0:
             return 0.0
         return 1 - equity / self._peak_equity
@@ -147,6 +183,11 @@ class RiskGuardedStrategy(IStrategy):
     def bot_loop_start(self, current_time: datetime, **kwargs) -> None:
         if self._halted:
             return
+        if not self._is_backtest():  # paper/live: check every LIVE_CHECK_SECONDS
+            last = getattr(self, "_last_live_check", None)
+            if last and (current_time - last).total_seconds() < LIVE_CHECK_SECONDS:
+                return
+            self._last_live_check = current_time
         dd = self.current_drawdown()
         if dd < HARD_DRAWDOWN_LIMIT:
             self._in_breach = False

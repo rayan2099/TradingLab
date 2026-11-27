@@ -1,6 +1,6 @@
 """Slot 01 - Trend following: EMA alignment with a fast/slow crossover."""
 import talib.abstract as ta
-import freqtrade.vendor.qtpylib.indicators as qtpylib
+from technical import qtpylib
 from lab_risk import RiskGuardedStrategy
 
 
