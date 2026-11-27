@@ -17,6 +17,7 @@ STRATS    := TrendFollowingV1 MeanReversionV1 MomentumV1 BreakoutV1 VolumeAnalys
 SIGNAL_STRATS := TrendFollowingV1 MeanReversionV1 MomentumV1 BreakoutV1 VolumeAnalysisV1
 
 .PHONY: help check setup download data-check backtest analyze scorecard test \
+        archive-data phase2 phase2-insample \
         paper-start paper-stop paper-status paper-scorecard \
         docker-pull docker-download docker-backtest docker-up docker-down docker-logs
 
@@ -52,6 +53,30 @@ analyze: check   ## lookahead-bias and recursive-indicator checks for every sign
 
 scorecard:       ## scorecard for the latest backtest
 	$(VENV)/bin/python scripts/scorecard.py backtest
+
+# ---- Phase 2 strategy lab -----------------------------------------------------
+# Design window 2021-2024, untouched test window = the scorecard period (2025 on).
+# The uptrend filter needs 200 days of history before the window: use archive-data.
+FTRUN     ?= $(FT)
+REGIME_STRATS := TrendFollowingR MeanReversionR MomentumR BreakoutR VolumeAnalysisR
+INSAMPLE  ?= 20210101-20250101
+OOS       ?= 20250101-
+
+archive-data:    ## BTC/ETH/SOL 1h+4h+1d since 2020 from Binance's public archive (no account)
+	$(VENV)/bin/python scripts/fetch_binance_archive.py --start 2020-01
+
+phase2: check    ## Phase 2 candidates on the scorecard period, with scorecards and drawdown checks
+	rm -f user_data/backtest_results/risk_breaches_*.json
+	$(FTRUN) backtesting $(CFG) --strategy-list $(REGIME_STRATS) BuyAndHoldBenchmark --timerange $(OOS) --export trades
+	$(VENV)/bin/python scripts/scorecard.py backtest
+	for s in $(REGIME_STRATS); do $(VENV)/bin/python scripts/mtm_drawdown.py $$s; done
+	rm -f user_data/backtest_results/risk_breaches_*.json
+	$(FTRUN) backtesting $(CFG) --timeframe 4h --strategy-list TrendRiderV1 BuyAndHoldBenchmark --timerange $(OOS) --export trades
+	$(VENV)/bin/python scripts/scorecard.py backtest
+	$(VENV)/bin/python scripts/mtm_drawdown.py TrendRiderV1
+
+phase2-insample: ## the same on the 2021-2024 design window
+	$(MAKE) phase2 OOS=$(INSAMPLE)
 
 test:            ## offline test suite (synthetic data, no network)
 	PYTHON=$(VENV)/bin/python bash tests/run_checks.sh

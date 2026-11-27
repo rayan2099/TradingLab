@@ -82,6 +82,10 @@ It must end at or above SAR 1,100, never cross the 5% drawdown line, beat buy-an
 make at least 30 trades and have a p-value under 0.05. On the first real backtest
 (Jan 2025 to Nov 2026) **no strategy passes**, which is the honest starting point for Phase 2.
 
+Phase 2 (strategy lab) is under way: an uptrend filter for every slot (`*R` strategies),
+a new 4h `TrendRiderV1`, and `make archive-data` / `make phase2`. Still no strategy passes;
+the results and every variant tried are in `docs/PHASE2_RESEARCH.md`.
+
 ## Status
 
 See `docs/PHASE1_AUDIT.md`.
