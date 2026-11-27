@@ -89,6 +89,24 @@ Each zone is only a *permission* to buy; **the entry always needs a bullish patt
 ### 2.2 Where sellers (supply) sit — لصالح البيع (`msg 26`, lesson 2)
 Mirror of 2.1: downtrend (lower highs and lower lows) `@2:45`; previous tops `@4:45`; volume candles, selling candles and long buying candles that price fell from and has returned to; a **broken bottom** when price comes back up to it `@15:00`.
 
+### 2.2a The 7 seller zones as spoken in lesson 2 — `[audio]` (transcript checked against the video, 28 Nov 2026)
+
+Slides in `msg 26` (36 min): intro 1:41, zones 1–7 at 2:43, 4:43, 6:25, 8:43, 10:25, 12:25, 13:55, end 15:15 (the two key notes are spoken over it), then the intraday sell patterns 19:50–34:20. Transcript and slides agree; the transcript's two slips are noted below.
+
+| # | Zone | What the presenter adds out loud |
+|---|---|---|
+| 1 | **Downtrend** (lower lows, lower highs) | Not always a sell. A positive pattern or a cancelled negative (e.g. a long selling candle that price closed above) can still give a speculative bounce: example 90 → 120. |
+| 2 | **Previous tops** that price returns to | "Trapped holders" sit there. Mark the top's high and low. Price returned to it up to five times and fell each time. If you hold a long trade there, **think about selling**. |
+| 3 | **Volume candle after a rise, then a close below it** | The close below is enough to make it a seller zone, and a later return to it is too. The volume owner is now trapped and will sell on a return (example: fell to 31, sells on the way back to 38.35). |
+| 4 | **Volume candle after a rise with a long upper wick, then its low is broken** | The long upper wick *suggests* a strong seller; the **close below the candle confirms** it. Measure the low from the previous close if there's a gap. |
+| 5 | **Broken prominent buying candle** (after a strong rise) | A close below its low cancels the positivity («انتفاء الإيجابية»), which is negative. Price often comes back to test the low, then falls. (The transcript says "volume candle" in the definition; the slide says buying candle.) |
+| 6 | **Prominent selling candle** that price fell from, then returned to | Only a strong seller prints it; a return to it is a seller zone. |
+| 7 | **Broken bottom** that price returns to (role reversal / retest) | Mark its high and low. On the retest, a fall is expected **if an intraday bearish pattern forms**. |
+
+**Two key notes** (spoken at the end of part 1):
+- A **demand zone** in supply/demand teaching is a market-maker *buy* zone; a **supply zone** is a *sell* zone.
+- **Buy zones = positivity achieved, or negativity cancelled. Sell zones = negativity achieved, or positivity cancelled.** He asks students to memorise this.
+
 ### 2.3 Drawing the zone — رسم المناطق (course B, `msg 96`)
 | Base candle | Zone from → to |
 |---|---|
@@ -155,6 +173,18 @@ Every example in lesson 3 has the higher-TF zone drawn in green and the 15 m pat
 
 ### 3.3 Sell-side patterns (`msg 26` part 2: النماذج اللحظية الداعمة للهبوط)
 False breakout above the zone high, negative divergence, **shooting star** الشهاب, bearish engulfing, doji, break of a buying candle, break of a volume candle. Example: a 15 m false breakout inside a zone made by a broken volume candle that price came back up to. (`msg 26 @19:00–25:00`)
+
+**`[audio]` lesson 2, part 2: the six intraday bearish patterns (15 m / 5 m), each inside a higher-TF seller zone**
+| Pattern | Rule as spoken | Slide |
+|---|---|---|
+| **False breakout** الاختراق الوهمي | A previous top is broken, even by a wick. Draw a line at the **low of the candle that broke it**; a **close below** that line completes the pattern. | 19:50, zone = broken volume candle |
+| **Negative divergence** | Price makes a higher (or equal) top while **RSI(14)** makes a lower or equal top. Line at the **low of the second-top candle**; a close below completes it. Watch for it when tops are close together. | 22:30 (5 m) |
+| **Shooting star** | Mostly a long upper wick, small body at the bottom. Mark its high and low; a **close below** it completes it. | 25:25 |
+| **Bearish engulfing** | Lines at its high and its **close** (the slide's lower line at the low is wrong, he says). Single-decision candle: act **at its close**, don't wait for a close below. | 27:55 |
+| **Doji** at a broken bottom | Body small versus the wicks. Close below it completes it. | 30:30 |
+| **Broken buying candle** | 15 m buying candle = **≥ 1 %**, measured from the previous close (here the auction close). A close below its low in a seller zone → exit. | 32:15 |
+| **Broken volume candle** at a prior top | Measure from the previous close (gap at the auction). A close below → exit. With a news gap-up and high volume, the exit line is the **low of the candle's body**. | 34:20 |
+
 
 ---
 
@@ -249,6 +279,11 @@ STOP: below pattern low;  reject trade if stop distance > 3%
   [group] daily screener: EMA7>EMA14>EMA20>EMA35>EMA50, close>EMA7, RSI14>=50, ROC12>=0 (g#13186)
   [group] time stop: exit after 3 trading days with neither stop nor target hit (g#10822)
   [group] market quality: first-hour traded value vs recent days (teacher: ~1bn SAR) (g#3872)
+  [audio L2] EXIT (long) on the LTF when inside an HTF seller zone (prior top, volume candle closed below
+          after a rise, broken buying candle, broken bottom retest) and any of: close below the low of the
+          candle that broke the prior top (false breakout); negative RSI(14) divergence + close below the
+          second-top candle's low; close below a shooting star / doji; bearish engulfing at its close;
+          close below a >=1% buying candle or below a volume candle
 TARGET (group): 2-3x the stop distance (g#4353); next supply / top
 TARGET: next HTF supply zone / previous top (no fixed % in slides)
 ```
@@ -257,7 +292,7 @@ TARGET: next HTF supply zone / previous top (no fixed % in slides)
 
 ## 7. Gaps — what's still missing
 
-- **Spoken content**: lesson 1 (`msg 7`) is done `[audio]`. Still missing: lessons 2–5 (`msg 26, 43, 67, 73`), the discussion videos (`msg 8, 27, 44, 68, 74`; lesson 1 says the discussion «لا تقل أهمية» than the lesson), the live session (`msg 76`), and course B's long lessons. The user is supplying transcripts.
+- **Spoken content**: lessons 1 and 2 (`msg 7, 26`) are done `[audio]`, checked against the videos. Still missing: lessons 3–5 (`msg 43, 67, 73`), the discussion videos (`msg 8, 27, 44, 68, 74`; lesson 1 says the discussion «لا تقل أهمية» than the lesson), the live session (`msg 76`), and course B's long lessons. The user is supplying transcripts.
 - Exact volume-candle threshold, exit/target rule, and position sizing: not on any slide.
 - PDFs: download-protected.
 - Lesson 5 (`msg 73`, screen design) is a TickerChart setup walkthrough: no trading rules on screen.
