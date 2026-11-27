@@ -43,6 +43,7 @@ data-check:      ## show the downloaded date range per pair
 backtest: check  ## backtest all slots + benchmark, then print the SAR scorecard
 	rm -f user_data/backtest_results/risk_breaches_*.json
 	$(FT) backtesting $(CFG) --strategy-list $(STRATS) --timerange $(TIMERANGE) --export trades --breakdown month
+	$(VENV)/bin/python scripts/scorecard.py bind
 	$(VENV)/bin/python scripts/scorecard.py backtest
 
 analyze: check   ## lookahead-bias and recursive-indicator checks for every signal strategy
@@ -77,6 +78,8 @@ docker-download: check
 docker-backtest: check
 	rm -f user_data/backtest_results/risk_breaches_*.json
 	docker compose run --rm tools "python /freqtrade/scripts/safety_check.py && freqtrade backtesting --config /freqtrade/user_data/config/base.json --strategy-list $(STRATS) --timerange $(TIMERANGE) --export trades --breakdown month"
+	python3 scripts/scorecard.py bind
+	python3 scripts/scorecard.py backtest
 
 docker-up: check
 	mkdir -p user_data/db user_data/logs

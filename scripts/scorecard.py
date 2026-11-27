@@ -3,8 +3,13 @@
 Trading Lab scorecard, in SAR, against the mission:
 turn SAR 1,000 into SAR 1,100 without breaking the 5% drawdown limit.
 
+  scorecard.py bind [results.zip]       attach this run's 5%-line breach records to the
+                                        result (make backtest does this automatically)
   scorecard.py backtest [results.zip]   latest (or given) backtest result
   scorecard.py paper                    the running / stopped paper bots
+
+Breach records are stored next to each result as <result>.breaches.json, so an
+old result keeps its own evidence. A result without that file fails the gate.
 
 A strategy PASSES the Phase 1 gate only if ALL of these hold:
   * ends at or above SAR 1,100 (net +100)
@@ -47,9 +52,25 @@ def latest_zip() -> Path:
     return zips[-1]
 
 
-def breaches(strategy: str) -> list[dict]:
-    f = UD / "backtest_results" / f"risk_breaches_{strategy}.json"
-    return json.loads(f.read_text())["breaches"] if f.exists() else []
+def sidecar(path: Path) -> Path:
+    return path.with_suffix(".breaches.json")
+
+
+def bind(path: Path) -> None:
+    """Move this run's per-strategy breach files into one record tied to the result."""
+    record = {}
+    for f in (UD / "backtest_results").glob("risk_breaches_*.json"):
+        data = json.loads(f.read_text())
+        record[data["strategy"]] = data["breaches"]
+        f.unlink()
+    sidecar(path).write_text(json.dumps({"result": path.name, "breaches": record}, indent=2))
+    print(f"Breach record bound to {path.name}: "
+          f"{sum(len(v) for v in record.values())} breaches across {len(record)} strategies.")
+
+
+def breaches(path: Path) -> dict[str, list] | None:
+    f = sidecar(path)
+    return json.loads(f.read_text())["breaches"] if f.exists() else None
 
 
 def backtest_rows(path: Path) -> tuple[list[dict], str]:
@@ -57,9 +78,10 @@ def backtest_rows(path: Path) -> tuple[list[dict], str]:
         name = next(n for n in z.namelist()
                     if n.endswith(".json") and not n.endswith("_config.json"))
         data = json.loads(z.read(name))["strategy"]
+    record = breaches(path)
     rows = []
     for strat, r in data.items():
-        b = breaches(strat)
+        b = (record or {}).get(strat, [])
         rows.append({
             "strategy": strat,
             "trades": r["total_trades"],
@@ -70,6 +92,8 @@ def backtest_rows(path: Path) -> tuple[list[dict], str]:
             "breaches": len(b),
             "first_breach": b[0]["at"][:10] if b else "",
             "is_benchmark": strat == BENCHMARK,
+            "evidence": record is not None,
+            "valued": True,
         })
     any_r = next(iter(data.values()))
     period = f"{any_r['backtest_start'][:10]} to {any_r['backtest_end'][:10]}"
@@ -116,7 +140,8 @@ def paper_rows() -> tuple[list[dict], str]:
             "profit_factor": None, "p_value": None,
             "breaches": int(halted), "first_breach": "HALTED" if halted else "",
             "is_benchmark": strategy == BENCHMARK,
-            "marked": "live" if live_total is not None else "closed trades only",
+            "evidence": True,
+            "valued": live_total is not None or n_open == 0,
         })
     return rows, "paper trading so far"
 
@@ -127,7 +152,14 @@ def verdicts(rows: list[dict], mode: str) -> None:
         if r["is_benchmark"]:
             r["verdict"] = "benchmark"
             continue
+        if not r["valued"] or (bench and not bench["valued"]):
+            r["verdict"] = "UNKNOWN: open positions not valued (start the bots to mark them)"
+            continue
         why = []
+        if not r["evidence"]:
+            why.append("no 5% breach record for this result")
+        if r["max_dd"] >= MAX_DD:
+            why.append(f"max drawdown {r['max_dd']:.1%}")
         if r["final_sar"] < TARGET_SAR:
             why.append("below 1,100")
         if r["breaches"]:
@@ -164,6 +196,9 @@ def render(rows: list[dict], period: str, mode: str, source: str) -> str:
 
 def main() -> None:
     mode = sys.argv[1] if len(sys.argv) > 1 else "backtest"
+    if mode == "bind":
+        bind(Path(sys.argv[2]) if len(sys.argv) > 2 else latest_zip())
+        return
     if mode == "backtest":
         path = Path(sys.argv[2]) if len(sys.argv) > 2 else latest_zip()
         rows, period = backtest_rows(path)

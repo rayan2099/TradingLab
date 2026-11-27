@@ -62,9 +62,25 @@ assert worst <= 0.0125, f"a trade risked {worst:.2%} of equity"
 print(f"   PASS: largest planned risk on any trade {worst:.2%} of equity (limit ~1%)")
 PYEOF
 
-echo "== scorecard renders"
+echo "== scorecard: breach evidence bound to each result, fails closed without it"
 cp "$WORK"/results/*.zip "$WORK/latest.zip"
-"$PY" "$ROOT/scripts/scorecard.py" backtest "$WORK/latest.zip" | tail -3
+"$PY" "$ROOT/scripts/scorecard.py" bind "$WORK/latest.zip"
+[ -f "$WORK/latest.breaches.json" ] || { echo "FAIL: no breach sidecar"; exit 1; }
+"$PY" "$ROOT/scripts/scorecard.py" backtest "$WORK/latest.zip" > "$WORK/score.md"
+grep -q "BreakoutV1 .*hit 5% line" "$WORK/score.md" || { cat "$WORK/score.md"; echo "FAIL: bound breaches not used"; exit 1; }
+cp "$WORK/latest.zip" "$WORK/orphan.zip"
+"$PY" "$ROOT/scripts/scorecard.py" backtest "$WORK/orphan.zip" > "$WORK/orphan.md"
+grep -q "no 5% breach record" "$WORK/orphan.md" || { cat "$WORK/orphan.md"; echo "FAIL: scored a result without breach evidence"; exit 1; }
+echo "   PASS: breaches read from the result's own record; a result without one fails"
+"$PY" - "$ROOT/scripts" <<'PYEOF'
+import sys; sys.path.insert(0, sys.argv[1]); import scorecard as s
+row = dict(strategy="X", trades=50, final_sar=1200, max_dd=0.01, profit_factor=None, p_value=None,
+           breaches=0, first_breach="", is_benchmark=False, evidence=True, valued=False)
+bench = dict(row, strategy=s.BENCHMARK, is_benchmark=True, valued=True, final_sar=900)
+s.verdicts([row, bench], "paper"); assert row["verdict"].startswith("UNKNOWN"), row["verdict"]
+row.update(valued=True, max_dd=0.2); s.verdicts([row, bench], "paper"); assert "max drawdown" in row["verdict"]
+print("   PASS: paper verdict withheld when open positions can't be valued; >5% drawdown fails")
+PYEOF
 
 echo "== no lookahead bias in any signal strategy"
 "$PY" "$ROOT/tests/offline_freqtrade.py" lookahead-analysis --userdir "$ROOT/user_data" \
