@@ -7,6 +7,7 @@ Exits non-zero (and the container refuses to start) if any Phase 1 rule is broke
   * no exchange API key, secret, password or uid anywhere
   * spot only, no margin mode, no leverage
   * no FREQTRADE__* environment overrides (they could flip dry_run off)
+  * dashboards (api_server) only on 127.0.0.1
   * strategies may not short, and guarded strategies may not set a stoploss
     looser than the hard limit in lab_risk.py
 
@@ -51,6 +52,12 @@ def check_config(name: str, cfg: dict) -> None:
         fail(f"{name}: margin_mode must be empty")
     if "leverage" in json.dumps(cfg).lower():
         fail(f"{name}: leverage settings are not allowed")
+    api = cfg.get("api_server", {})
+    if api.get("enabled") and api.get("listen_ip_address") != "127.0.0.1":
+        fail(f"{name}: api_server must listen on 127.0.0.1 only (got "
+             f"{api.get('listen_ip_address')!r})")
+    if cfg.get("telegram", {}).get("enabled") and not cfg["telegram"].get("chat_id"):
+        fail(f"{name}: telegram enabled without a chat_id")
     ex = cfg.get("exchange", {})
     for field in ("key", "secret", "password", "uid", "walletAddress", "privateKey"):
         if ex.get(field):
@@ -117,7 +124,11 @@ def main() -> int:
     base = load(CONFIG_DIR / "base.json")
     check_config("base.json", base)
     for bot in sorted((CONFIG_DIR / "bots").glob("*.json")):
-        check_config(f"bots/{bot.name}", merged(base, load(bot)))
+        cfg = merged(base, load(bot))
+        local = CONFIG_DIR / "local" / bot.name  # per-machine settings from setup_local.py
+        if local.exists():
+            cfg = merged(cfg, load(local))
+        check_config(f"bots/{bot.name}", cfg)
     check_strategies()
 
     if errors:
