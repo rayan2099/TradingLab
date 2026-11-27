@@ -43,6 +43,16 @@ Source: `msg 10` (text post, verbatim copy in project files), `msg 43 @9:35`.
 ### 1.2 Negative candles — الشموع السلبية
 Mirror image: **selling candle** شمعة بيعية ≤ −1 % (15 m), ≤ −3 % (1 h, daily), ≤ −10 % (weekly); gap-up reversal; bearish engulfing (engulfed candle must not have a long **lower** wick left out); **close below a volume candle**.
 
+### 1.2a The 4 negative candles as spoken in the lesson 2 discussion — `[audio]` (transcript checked against the video `msg 27`, 28 Nov 2026)
+| # | Candle | Rule as spoken | Video example |
+|---|---|---|---|
+| N1 | **Selling candle** شمعة بيعية | daily change (previous close → close) **≤ −3 %** | 1:00, a −3.49 % day; the transcript says "7 %" here, the chart shows −3.49 % |
+| N2 | **Gap-up reversal** (hollow red candle) | opens with a gap **up**, then falls; measure **open → close** (not from the previous close). If that fall is **≥ 3 %**, it is a selling candle: "a strong seller used the news to unload". Often news and high volume. | 5:00: opened 144.00, closed 136.00 (−5.6 % open→close) while its close-to-close change was **+3.50 %**. The "5 %" in the transcript is this example's size; the rule is 3 %. |
+| N3 | **Bearish engulfing** | engulfs the previous candle. Ideal = engulfs body and wicks; non-ideal = body only. **Change % and volume don't matter.** "Single-decision" candle: exit **at its close**, no next candle needed. | 8:40: 27-11-2024, line drawn at the close 22.66 (a −3.49 % day too, "two things in one candle") |
+| N4 | **Close below a volume candle** | a very high volume bar that comes **after a rise**; a close below its low = exit, the seller is confirmed. With a gap, measure from the previous close. | 12:00 (line 52.50); 14:00 مياهنا daily: volume candle high 45.54 / low 39.00, exit on the close below 39.00 (the transcript's "9.30") |
+
+He stresses reading candles together («النظرة الشمولية»): one candle can be a selling candle, an engulfing and a broken volume candle at once.
+
 ### 1.3 Other candle shapes used (course B, `msg 94`; course A, `msg 43`)
 - **Inside bar / harami** الأنسايد بار (الهرامي، المرأة الحامل): a mother candle with one or more candles fully inside it. *Fewer inside candles = stronger.* (`msg 43 @15:35`)
 - **Spinning top** شمعة المغزل: two roughly equal wicks, small body. (`msg 43 @13:50`)
@@ -185,6 +195,17 @@ False breakout above the zone high, negative divergence, **shooting star** ال�
 | **Broken buying candle** | 15 m buying candle = **≥ 1 %**, measured from the previous close (here the auction close). A close below its low in a seller zone → exit. | 32:15 |
 | **Broken volume candle** at a prior top | Measure from the previous close (gap at the auction). A close below → exit. With a news gap-up and high volume, the exit line is the **low of the candle's body**. | 34:20 |
 
+**`[audio]` lesson 2 discussion (`msg 27`), exit examples on 15 m (checked against the video)**
+- **Look for exit patterns at the highest prices**: they formed there, which is why price fell after. (17:00)
+- **One close, three exit signals** (أديس, 15 m, ~18:00): a **≥ 1 % buying candle** that is also a **very high volume candle**, at a second top with a **negative divergence**. The close below that candle's low (line 13.70) cancels the buying candle, breaks the volume candle and completes the divergence (close below the low of the second-top candle). An experienced trader sees the divergence from close tops without opening RSI.
+- **False breakout + bearish engulfing** (علم, 15 m, 19:05): candle at 10:15 on 30-04-2025, change only −0.34 %, exit at its close 1014.50. **Auction candles count for nothing**, as if they weren't on the chart. Some traders call that candle a spinning top or doji and wait for a close below its low instead.
+- **Early exit or confirmed exit is the trader's choice** (الأندلس, 15 m, 21:10): a bearish engulfing (close line 22.42) next to a volume candle (low 22.30), 12 halalas apart. Exit at the engulfing's close, or wait for a close below the volume-candle low.
+- **Review** (مياهنا, 23:40): the daily seller zone is a prior top that is also a broken volume candle, drawn from the **previous close (24.86) to the high (27.30)**; "don't draw it wide". On 15 m inside it: a ≥ 1 % buying candle with very high volume, close below its low (26.88) → exit.
+- **Q&A:**
+  - After price breaks below a selling candle, a retest is **not** required. If price does come back to it, it's a seller zone; raise your caution. The transcript says "only a strong **buyer** forms it", but he means seller (he said strong seller earlier).
+  - Marking a volume candle on the higher timeframe: mark its high and low on the daily, then when price returns go to 15 m (sometimes 5 m) and wait for a bearish pattern. (28:00, مياهنا 45.54 / 39.00)
+  - "The bottom of the selling candle" is an advanced topic, left for later.
+
 
 ---
 
@@ -284,6 +305,12 @@ STOP: below pattern low;  reject trade if stop distance > 3%
           candle that broke the prior top (false breakout); negative RSI(14) divergence + close below the
           second-top candle's low; close below a shooting star / doji; bearish engulfing at its close;
           close below a >=1% buying candle or below a volume candle
+  [audio L2 disc] HTF negative candle (any): change <= -3%; gap-up open with (open-close)/open >= 3%
+          (even if close-to-close is positive); bearish engulfing (any size/volume, decided at its close);
+          close below the low of a volume candle that came after a rise. Ignore auction candles.
+          Exit timing is a parameter: early = engulfing close; confirmed = close below nearby volume-candle low.
+          HTF seller zone from a volume candle / prior top = [previous close, high]; no retest needed after
+          a selling candle breaks, but a return to it is a seller zone.
 TARGET (group): 2-3x the stop distance (g#4353); next supply / top
 TARGET: next HTF supply zone / previous top (no fixed % in slides)
 ```
@@ -292,7 +319,7 @@ TARGET: next HTF supply zone / previous top (no fixed % in slides)
 
 ## 7. Gaps — what's still missing
 
-- **Spoken content**: lessons 1 and 2 (`msg 7, 26`) are done `[audio]`, checked against the videos. Still missing: lessons 3–5 (`msg 43, 67, 73`), the discussion videos (`msg 8, 27, 44, 68, 74`; lesson 1 says the discussion «لا تقل أهمية» than the lesson), the live session (`msg 76`), and course B's long lessons. The user is supplying transcripts.
+- **Spoken content**: lessons 1 and 2 (`msg 7, 26`) are done `[audio]`, checked against the videos. Still missing: lessons 3–5 (`msg 43, 67, 73`), the discussion videos (`msg 8, 44, 68, 74`; `msg 27` done `[audio]`; lesson 1 says the discussion «لا تقل أهمية» than the lesson), the live session (`msg 76`), and course B's long lessons. The user is supplying transcripts.
 - Exact volume-candle threshold, exit/target rule, and position sizing: not on any slide.
 - PDFs: download-protected.
 - Lesson 5 (`msg 73`, screen design) is a TickerChart setup walkthrough: no trading rules on screen.
