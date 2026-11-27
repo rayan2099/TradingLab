@@ -221,6 +221,12 @@ ENTRY (LTF, while price is inside the HTF zone), any of:
   buying candle broken (even by wick), then close > its high (#10)
   inside-bar breakout, pin bar, RSI positive divergence (#6, #9, #12)
 STOP: below pattern low;  reject trade if stop distance > 3%
+  [group] stop triggers on a 15m CLOSE below the pattern low (not a wick); if a candle breaks it,
+          mark that candle's low and exit only on a close below it (false-break filter, g#25823)
+  [group] trail: move stop up under each new bullish pattern / volume candle on the LTF
+  [group] skip auction volume bars when picking the volume candle (g#25123)
+  [group] quality filters to test: positive RSI divergence at entry; stock above MA200 on 15m;
+          market (TASI) not in a negative pattern
 TARGET: next HTF supply zone / previous top (no fixed % in slides)
 ```
 
@@ -232,3 +238,49 @@ TARGET: next HTF supply zone / previous top (no fixed % in slides)
 - Exact volume-candle threshold, exit/target rule, and position sizing: not on any slide.
 - PDFs: download-protected.
 - Lesson 5 (`msg 73`, screen design) is a TickerChart setup walkthrough: no trading rules on screen.
+
+---
+
+## 8. Practice group: answers from "Mod" and the teacher — `[group]`
+
+Source: the discussion group **«احتراف المضاربات اللحظية ٩»**, where students apply what the channel teaches.
+Two accounts matter: **"Mod ."** (Abu Khalid, `@modee_14`, the most active member: about 1,300 of 3,900 messages read so far)
+and **the teacher himself, "أحمد ( أبو عبدالله )"** (`@Ahmed_Abuabullah`). References are group message numbers (`g#N`).
+Coverage so far: **30 Jun – 27 Nov 2026** (messages `g#22700–26794`). Older history is still being read.
+Most of Mod's posts are chart images captioned with a stock name and a pattern name. Only the text is captured here.
+
+### 8.1 Rules confirmed or added by the teacher
+- **Price trap** (المصيدة السعرية) = a negative pattern that fails, or a positive pattern that is broken, **then price closes back above it**. `g#23568`
+- **How to raise trade quality**: a strong zone on the higher TF, then a bullish pattern, ideally with **positive RSI divergence**, plus a good market, plus trade management. **Enter in batches**, not all at once. Focus on **momentum (speculative) stocks**. Quality over quantity. Split the portfolio between intraday trades and daily-TF trades. He himself uses no indicators. `g#24328`
+- Where the method works best: a **speculative stock trading above the 200 MA on the 15 m chart**, where several setups line up at once. `g#25237`
+- **Ignore an extremely high volume bar if it's the closing-auction bar** (بار كميات مزاد). `g#25123`
+- **Avoiding false stop-outs** (تلافي كسور الوقف الخداعية): when a candle breaks the stop level, mark **that candle's low**. The stop only triggers on a **close below that low**. Example: an inside bar broke, the low of the breaking candle was treated as the final failure point, and the stock then made +8 %. `g#25823, 25826`
+- **Exit / bearish side**: a **bearish engulfing at the highs, on its close** is an exit signal, so don't wait for a close below its low. A **shooting star after a rise, followed by a close below it** is a bearish intraday pattern. Price reaching the low of a broken buying candle (resistance) means either wait for a bearish pattern or exit. `g#25127, 25130, 25143, 25158`
+- A long negative candle whose **low holds** is a recurring "technical state", not a pure pattern, and is **high risk**. `g#25141`
+- Candles and volume "work in every market and every timeframe". His example was a US stock on 5 m, entered on a close above a volume candle. `g#25221–25223`
+
+### 8.2 Mod's practical rules (stops, entries, management)
+- **The default stop is the pattern stop on 15 m** (وقف النموذج ربع ساعه): exit on a 15 m **close** below the pattern low. A volume-candle entry uses the volume candle's low as the stop, on 15 m. `g#22946, 23744, 24245, 25007`
+- An alternative is a wider stop at the **pattern low or the daily low / zone low**. Some traders use the bottom the move started from, if it's within about 3 % of the pattern's completion point. `g#23385, 23469, 23989`
+- **Never take a trade whose stop is ~9 % away**, e.g. right after a 9 % selling candle. Wait for price to come back near the prior candle's close, which gives a tight stop. That example then made ~6 %. `g#23498–23501`
+- Candles with a **long lower wick usually get revisited** down to their low or middle. `g#23505`
+- **Gap setups**: the correct stop is the gap, which is far and costly. Mod's "aggressive" version uses a stop near the entry price. `g#24471–24472`
+- **Trailing**: raise the stop each time a new bullish pattern forms (e.g. a bullish engulfing or a new volume candle). Use an hourly line to protect open profit. If the next resistance is farther than the speculative target, trail toward it. Otherwise take **1–3 %** and leave. `g#23860, 24155, 24512, 25067`
+- **Positive divergence at a false break** is the strongest confirmation he cites. In his words, spotting the fake break was "one of the greatest things we learned in the course". `g#24165, 24523, 25229–25231`
+- **Demand zones need their own management** because the stop is far. A speculator should drop to a small TF and wait for a pattern with a close stop, or accept the wide stop with a **~1 : 3 risk : reward** (risk 1,000 to make 3,000, so one win covers three losses). `g#25501, 25506`
+- **A bearish engulfing cancels the setup until price closes back above it.** "Positivity" returns only with a close above the bearish engulfing, or when price falls into the demand zone and holds. `g#25433–25437, 25533`
+- **A buying candle gets broken, then price closes above the breaking candle**: enter, with the stop at the lowest point of the pattern. `g#25521`
+- **No decline happens without a bearish pattern forming first.** A pullback in an uptrend is a re-buy; a rally in a downtrend is a selling chance. **Always buy in buyers' zones.** `g#25936, 26354, 26369`
+- **Market filter**: avoid trading when the market is negative, or trade small. Stocks that jump in the closing auction usually calm down at the next open. Watch stocks sitting at demand zones together with TASI, because when TASI rebounds they bounce first. `g#25327, 25345, 25469, 26640`
+- Spread capital over about **3 stocks and trail the stop**, rather than jumping in and out. `g#26491`
+
+### 8.3 Mod's "momentum pullback" strategy (posted 14 Nov 2026) — «الاستراتيجية»
+Mod's own simpler version of a "beautiful but complicated" momentum strategy. In late Nov he applies it to TASI and to individual stocks (`g#26640, 26657, 26779–26794`).
+1. Put a **50-period moving average on volume**.
+2. Find a stock that **rose at least 12 % in 3 to 7 candles**, with volume bars **breaking out above the volume MA**.
+3. Wait for a **pullback that forms an "M"-like shape** (a rise, a dip, a smaller rise, a dip). The two halves don't need to be equal.
+4. **Enter when the buyer appears**: a buying candle with volume on the daily. You can enter earlier on **30 m** if a bullish pattern forms there. Strengthen the trade with positive divergence, a Fib level (38.2 / 50 / 61.8), or a moving average.
+5. The more candles and % in the first rise, the longer the pullback takes. The fewer, the faster the next leg.
+`g#26578–26614`
+
+> Not yet read: the group's history before 30 Jun 2026 (about 22,700 messages), and the chart images themselves.
