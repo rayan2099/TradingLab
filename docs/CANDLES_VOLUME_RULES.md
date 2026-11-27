@@ -3,9 +3,9 @@
 Extracted from the Telegram channel **«الـمـلـخـص ٩»** only (the user's study channel), Nov 2026.
 Source references use the channel's message number (`msg N`) and, for videos, the time in the video (`@mm:ss`).
 
-> **Status: slides + text only (draft 1).** The lessons are slide decks and every slide was read frame by frame.
-> What the presenter says *only out loud* is **not yet included**. An audio pass (Arabic dictation while the
-> lessons play) is in progress; rules it adds or changes will be marked `[audio]`.
+> **Status: draft 2. Slides + text, plus the spoken audio of lesson 1 (`msg 7`).** Every slide was read frame by frame.
+> The user supplied a full Arabic transcript of lesson 1 (27 Nov 2026). Rules confirmed or added from what the
+> presenter says are marked **`[audio]`**. The other lessons are still slides-only; their transcripts will be merged the same way.
 >
 > The channel has download protection, so the PDFs (`msg 9, 28, 45, 69, 70, 71, 84, 115, 117`) could not be opened.
 > Several of them are shown on screen inside the short clips, and those pages are covered.
@@ -54,6 +54,12 @@ Mirror image: **selling candle** شمعة بيعية ≤ −1 % (15 m), ≤ −3
 ## 2. Market-maker zones — مناطق صناع السوق
 
 ### 2.1 Where buyers (demand) sit — مناطق صناع السوق لصالح الشراء (`msg 7`, lesson 1)
+
+`[audio]` Why it works: market makers can't hide their footprints because their size is large («لا يستطيعون إخفاء آثارهم بسبب كمياتهم العالية»).
+Our job is to find those footprints and follow them. **Zones are drawn on the higher timeframe; the footprints (entry patterns) are looked for on the lower one.**
+
+Slide list (the slides show 9 items; in the audio the presenter groups them into **7 zones**, treating "close above a volume candle" and
+"close above a selling candle" as part of zones 3 and 6; see 2.1a):
 1. **General uptrend** (higher highs and higher lows). `@9:48`
 2. **Previous bottoms** that price rose from and has now returned to. `@11:32`
 3. **Volume candles** that price rose from and has returned to: only market makers can print them. `@12:47`
@@ -63,6 +69,20 @@ Mirror image: **selling candle** شمعة بيعية ≤ −1 % (15 m), ≤ −3
 7. **A close above a volume candle**: buyer superiority, even after a downtrend or a range. `@21:05`
 8. **A close above a selling candle.** `@21:47`
 9. **Fibonacci retracements 50 % and 61.8 %** of the prior up-move. `@22:32`
+
+### 2.1a The 7 zones as spoken in lesson 1 — `[audio]` (confirmed from the transcript)
+
+| # | Zone | What the presenter adds out loud |
+|---|---|---|
+| 1 | **Uptrend** (المسار الصاعد): higher highs and higher lows | Called "the backbone" of high-probability trades. **But be careful** if price in an uptrend faces a previous resistance, a big moving average, or a supply zone. Example: buying at 86 "because the trend is up", then price fell back to 57. |
+| 2 | **Previous low** that price rose from, then came back to | Mark the bottom candle's **high and low**. On the return, drop to a smaller timeframe and look for a pattern that shows the buyer is defending the zone. Example: rose 66 to 86, then came back. |
+| 3 | **Volume candle** | Has **two** zones: (a) **a close above the volume candle** (positivity in the *current* zone), and (b) **a return to it after price rose from it** (the *opposite* zone). Volume bar = higher than the previous bars. **Preferably after a decline.** If there's a gap, measure from the previous close. A close above it shows the buyer is winning, and it's stronger after an uptrend or a sideways range. "Only market makers can print volume candles. **Volume is the key to truth**" (الفوليوم مفتاح الحقيقة). Example used the weekly as the higher TF and 1 h as the lower one. |
+| 4 | **Prominent buying candle** that price rose from, then came back to | Only a strong buyer can print it (example: one week from 71 to 90). **The zone runs from its low to its close, not its high**, because change % is measured on closes. On a return to it, look for a bullish pattern. |
+| 5 | **Broken previous high** | A top is a seller's zone. Once price **closes above it** and rises, it becomes a buyer's zone. Mark the top's high and low. On a retest, look for a bullish pattern on the lower TF. "Only a strong buyer can break a previous high and rise after it", so expect him to defend it. Example: +48 % after the retests. |
+| 6 | **Broken long selling candle**: a "price trap" (مصيدة سعرية), which he calls «انتفاء السلبية» | Logic says price should keep falling after a strong selling candle. If it **closes above the selling candle's high** instead, the negativity is cancelled and becomes a trap in favour of buyers. **The close above it is enough** to make the zone valid. A later return to it is also a buy zone. Example: a selling candle of −16 % that price closed above. Same logic as a close above a volume candle. |
+| 7 | **Fibonacci 50 % / 61.8 %** | Draw the Fib on the wave with **0 at the top and 100 at the bottom**. Wait for price at the **50 %** or **61.8 %** level, "the most worthy levels". Then drop to a smaller TF for a bullish pattern. |
+
+Each zone is only a *permission* to buy; **the entry always needs a bullish pattern on the lower timeframe** inside it.
 
 ### 2.2 Where sellers (supply) sit — لصالح البيع (`msg 26`, lesson 2)
 Mirror of 2.1: downtrend (lower highs and lower lows) `@2:45`; previous tops `@4:45`; volume candles, selling candles and long buying candles that price fell from and has returned to; a **broken bottom** when price comes back up to it `@15:00`.
@@ -95,6 +115,15 @@ Enhancers: the exit is made by **two** buying/selling candles; prefer a bottom t
 ## 3. Entry: intraday patterns inside the zone — النماذج اللحظية
 
 Rule (`msg 7 @5:00`, `msg 43 @2:00`): use **two timeframes**. The higher one (daily/weekly) confirms the zone is valid for buying. The **intraday** one (15 m, or 5 m) gives the pattern, the entry, the stop and the target.
+
+`[audio]` Confirmed and detailed in lesson 1:
+- **Higher timeframe, read from two perspectives** (منظورين):
+  1. **The opposite zone** (المنطقة المقابلة): price is falling and reaches an old buyer's zone. That zone is valid for buying.
+  2. **The current zone** (المنطقة الحالية): positivity has *formed* where price is now, e.g. a close above a volume candle or above a selling candle.
+- **Lower timeframe:** look for a **technical pattern supporting a rise**. It fixes the **entry price, stop-loss, target and risk amount**. In the Saudi market only buys are possible, so only bullish patterns are used.
+- **"Trade quality comes from managing the trade, not from the pattern"** (جودة الصفقات من خلال إدارتها وليس من خلال نماذجها).
+- **If you can't watch the market full-time, raise the timeframe**: use 1 h instead of 5 m / 15 m.
+- Stay away from distractions **10:00–15:00** (the Saudi session), and don't overuse indicators (overbought/oversold readings, crossovers). Keep it simple.
 **The stop-loss distance must not exceed 3 %.** (`msg 43 @2:00`: «نسبة الخسارة التي يشترط أساسياً ألا تزيد عن ٣٪»)
 
 Every example in lesson 3 has the higher-TF zone drawn in green and the 15 m pattern forming **inside** it.
@@ -171,8 +200,16 @@ volume_candle = volume >= max(volume[-N..-1])     # N to tune; "highest vs prior
 DEMAND ZONE on HTF (any of):
   - bullish engulfing / inside bar / doji / base candle whose exit move >= 2x zone height,
     exit by a full candle, < 6 candles in zone, zone untested (fresh), and the move broke a prior high
-  - prior bottom / broken prior top / breached long selling candle / HTF volume candle price rose from
-  - 50%-61.8% retracement of the last up-leg
+  [audio, lesson 1 - the 7 zones]
+  1 uptrend (HH/HL) AND price not at prior resistance / big MA / supply zone
+  2 return to a prior bottom candle [low, high]
+  3 volume candle: (a) HTF close > its high  -> "current zone" positive
+                   (b) return to [low, high] after a rise from it -> "opposite zone"
+                   prefer after a decline; gap -> measure from prior close
+  4 return to a prominent buying candle: zone = [low, CLOSE] (not high)
+  5 retest of a broken prior high [top candle low, high] after a close above it
+  6 close > high of a long selling candle (price trap), or a later return to it
+  7 Fib on the wave, 0 at top / 100 at bottom: price at the 50% or 61.8% level
 FILTER: daily trend up (higher highs/lows) and daily zones not broken; else only weekly zones
 
 ENTRY (LTF, while price is inside the HTF zone), any of:
@@ -191,7 +228,7 @@ TARGET: next HTF supply zone / previous top (no fixed % in slides)
 
 ## 7. Gaps — what's still missing
 
-- **Spoken content** of all lessons and the discussion videos (`msg 8, 27, 44, 68, 74`), the live session (`msg 76`), and course B's long lessons. In progress.
+- **Spoken content**: lesson 1 (`msg 7`) is done `[audio]`. Still missing: lessons 2–5 (`msg 26, 43, 67, 73`), the discussion videos (`msg 8, 27, 44, 68, 74`; lesson 1 says the discussion «لا تقل أهمية» than the lesson), the live session (`msg 76`), and course B's long lessons. The user is supplying transcripts.
 - Exact volume-candle threshold, exit/target rule, and position sizing: not on any slide.
 - PDFs: download-protected.
 - Lesson 5 (`msg 73`, screen design) is a TickerChart setup walkthrough: no trading rules on screen.
