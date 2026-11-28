@@ -54,7 +54,7 @@ Mirror image: **selling candle** شمعة بيعية ≤ −1 % (15 m), ≤ −3
 He stresses reading candles together («النظرة الشمولية»): one candle can be a selling candle, an engulfing and a broken volume candle at once.
 
 ### 1.3 Other candle shapes used (course B, `msg 94`; course A, `msg 43`)
-- **Inside bar / harami** الأنسايد بار (الهرامي، المرأة الحامل): a mother candle with one or more candles fully inside it. *Fewer inside candles = stronger.* (`msg 43 @15:35`)
+- **Inside bar / harami** الأنسايد بار (الهرامي، المرأة الحامل): a mother candle with one or more candles fully inside it. *Fewer inside candles = stronger* (`msg 43 @15:35`, slide). `[audio L3]` He withdraws this: the slide is old, and in his experience the number of inside candles gives neither strength nor weakness. The mother's colour doesn't matter to him either (books say it should be red).
 - **Spinning top** شمعة المغزل: two roughly equal wicks, small body. (`msg 43 @13:50`)
 - **Pin bar** البين بار: long lower wick versus the body, very small or no upper wick. (`msg 43 @24:35`)
 - **Marubozu** المربوزو, **Doji** الدوجي (weakest candle on its own), **Base candle** البيس (body ≤ wicks). Engulfing is called "the best candle". (`msg 94`)
@@ -173,6 +173,37 @@ Every example in lesson 3 has the higher-TF zone drawn in green and the 15 m pat
 | 10 | **Break of a buying candle, then close above it** كسر شمعة شرائية ثم الإغلاق أعلاها | a 15 m/5 m buying candle (≥ +1 %) is broken, **even by a wick only**, then price **closes back above it** | `@27:20` |
 | 11 | **Fakey** الفيكي باترن | inside bar, but price first breaks the mother's **low** (even by a wick), then **closes above the mother's high** | `@30:50` |
 | 12 | **Positive divergence** الدايفرجنس الإيجابي | price makes a lower low while RSI makes a higher low. Entry on a close above the pattern | `@34:35` |
+
+### 3.1a Lesson 3 as spoken — `[audio]` (transcript checked against the videos, 28 Nov 2026)
+The transcript is two recordings joined: the **discussion video `msg 44` from 0:00 to ~20:00** (the three notes and the stock examples), then the **lesson video `msg 43` from the end of slide 6 (~18:30) to the end** (patterns 7–12). Spoken audio for slides 1–6 and for `msg 44` after 20:00 (الزامل onwards) is not in it.
+
+**The three notes he says to "memorise like your names"** (`msg 44`, start):
+1. Lesson 1's zones and the four positive candles can show up **on the same timeframe as the pattern** (e.g. a ≥ 3 % candle on 15 m). That gives the price a positive view, **not an entry**: «لا دخول إلا بنموذج لحظي داعم للصعود».
+2. Every bullish pattern is one of two things: **positivity achieved, or negativity cancelled**.
+3. **The most important point of the course**, his one-sentence summary: **the more bullish patterns on the chart at the same place, the stronger the setup** (النظرة الشمولية).
+
+**Pattern details from the audio** (slide times are `msg 43`):
+| # | Pattern | What the audio adds | Slide |
+|---|---|---|---|
+| 6 | Inside bar | Stop = the lowest point between the mother candle and the candle that closed above it. Number of inside candles and mother colour don't matter (see §1.3). | ~18:30 |
+| 7 | Bullish engulfing | Ideal = engulfs body and wicks; non-ideal = body only. Volume and change % don't matter. **Single-decision**: complete at its close, no confirmation needed (every other pattern needs a close after it). The upper line belongs at its **close**; the slide puts it at the high and he calls the slide wrong. | 19:20 |
+| 8 | Failed bearish engulfing | "Negativity cancelled". A bearish engulfing forms, then a candle **closes above it**. Stop = lowest point between the top of the bearish engulfing and the close above it. | 22:15 |
+| 9 | Pin bar | Long lower wick versus the body, small or no upper wick, body at the top. **Colour doesn't matter.** The buyer's strength is judged by the **close above the pin bar**. "Pin bar combo" closes inside the prior candle's range; don't dwell on the difference. | 24:25 |
+| 10 | Broken buying candle, then close above | «لا يوجد نموذج اسمه إغلاق أعلى شمعة شرائية»: a buying candle (15 m ≥ 1 %) must **first be broken** below its low (wick or body), **then** price closes above its high. Weakness: the stop can be large, about 3 % or more. Some traders accept price just returning inside the candle; he requires the close above. | 27:15 (slide: "≥ 1 % on 15 m or 5 m; a break even by a wick counts") |
+| 11 | Fakey | **Main condition, said three times: the candle right after the mother must be inside the mother's range** (high to low incl. wicks). If the next candle breaks the mother, it is not a fakey. Then the mother's low is broken (wick or close, one or several candles), then a **close above the mother's high**. Stop = lowest point between. Mother colour doesn't matter. | 30:50 |
+| 12 | Positive divergence | **Supporting evidence only (للاستئناس), not an entry pattern**: at the second bottom a candle pattern usually forms anyway. Price lower low + RSI higher low. Some traders measure it on closes (line chart) instead of wicks. | 34:20 |
+
+**Rules spoken with the examples (`msg 44`, checked against the charts):**
+- **Entry** is when the pattern completes; whether to enter at once, wait for a retest, or split the size is the trader's choice. (حرفي, 4:24–9:00)
+- **Measuring**: stop % from the **upper line (the pattern line) down to the lower line**; target measured from the upper line **upwards**. (إعمار, lines 14.11 / 13.80, 9:20–11:40)
+- **Gaps are ignored inside candle patterns** (e.g. the fakey). (حرفي)
+- **Don't be too strict on thresholds**: a 15 m candle of **−0.96 %** was accepted as a selling candle «ولا نحجر واسعًا». (إنتاج, 06-07-2025 13:45, close 43.36, 18:40–19:50)
+- **Confluence examples**:
+  - حرفي: price returns to the opposite zone (a ≥ 3 % 15 m buying candle). There it makes a bullish engulfing, a false break of a prior low (gap: measure from the previous close), a fakey, and a positive divergence, all at once.
+  - إعمار: a ≥ 1 % buying candle broken then closed above, plus a close above a ≥ 1 % selling candle: two patterns in one zone.
+  - المطاحن العربية (12:06–13:00): an inside bar whose mother candle is also a volume candle; the stop is the lowest point between, and the target was hit.
+  - سينومي ريتيل (13:10–16:30): the zone is a volume candle that is also a > 3.5 % buying candle. Inside it come a fakey, a pin bar that rose > 10 %, and later an inside bar. The mother there is a ≥ 1 % negative candle and a spinning top.
+  - جبل عمر (17:00–18:10): one candle that engulfs the candle before it, is the mother of the inside bar after it, and breaks the prior bottom. Price made a lower low while RSI did not.
 
 ### 3.2 Course B versions of the same ideas
 - **High-volume candle model** شمعة الكميات العالية (`msg 107`): *"the positive model is to break it first, then return and close above it, in an uptrend"*. In other words: price dips below the high-volume candle, then closes back above it.
@@ -311,6 +342,15 @@ STOP: below pattern low;  reject trade if stop distance > 3%
           Exit timing is a parameter: early = engulfing close; confirmed = close below nearby volume-candle low.
           HTF seller zone from a volume candle / prior top = [previous close, high]; no retest needed after
           a selling candle breaks, but a return to it is a seller zone.
+  [audio L3] CONFLUENCE: score = number of bullish patterns completing in the same zone/bar cluster;
+          "more patterns = stronger" (his key point). HTF-type candles on the LTF are context, not an entry.
+          FAKEY requires bar[mother+1] inside mother's range; then low < mother.low; then close > mother.high.
+          INSIDE BAR: inside-candle count and mother colour are not used. PIN BAR colour not used.
+          BROKEN BUYING CANDLE: low broken first (wick ok), then close > its high; skip if stop > 3%.
+          FAILED BEARISH ENGULFING: close > its high; stop = lowest low between its top and that close.
+          DIVERGENCE (RSI14): filter/score only, never an entry by itself.
+          Thresholds: allow a small tolerance (a -0.96% 15m candle counted as selling); ignore gaps in candle patterns.
+          Stop % = (pattern line - stop line) / pattern line; target measured up from the pattern line.
 TARGET (group): 2-3x the stop distance (g#4353); next supply / top
 TARGET: next HTF supply zone / previous top (no fixed % in slides)
 ```
@@ -319,7 +359,7 @@ TARGET: next HTF supply zone / previous top (no fixed % in slides)
 
 ## 7. Gaps — what's still missing
 
-- **Spoken content**: lessons 1 and 2 (`msg 7, 26`) are done `[audio]`, checked against the videos. Still missing: lessons 3–5 (`msg 43, 67, 73`), the discussion videos (`msg 8, 44, 68, 74`; `msg 27` done `[audio]`; lesson 1 says the discussion «لا تقل أهمية» than the lesson), the live session (`msg 76`), and course B's long lessons. The user is supplying transcripts.
+- **Spoken content**: lessons 1 and 2 (`msg 7, 26`) are done `[audio]`, checked against the videos; lesson 3 is done for slides 6–12 (`msg 43` from ~18:30). Still missing: lesson 3 slides 1–5, lessons 4–5 (`msg 67, 73`), the discussion videos (`msg 8, 68, 74`, and `msg 44` after 20:00; `msg 27` and `msg 44` 0–20:00 done `[audio]`; lesson 1 says the discussion «لا تقل أهمية» than the lesson), the live session (`msg 76`), and course B's long lessons. The user is supplying transcripts.
 - Exact volume-candle threshold, exit/target rule, and position sizing: not on any slide.
 - PDFs: download-protected.
 - Lesson 5 (`msg 73`, screen design) is a TickerChart setup walkthrough: no trading rules on screen.
