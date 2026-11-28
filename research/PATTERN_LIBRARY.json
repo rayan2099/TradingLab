@@ -1,0 +1,12 @@
+{
+  "schema_version": "1.0.0",
+  "patterns": [
+    {"id":"INSIDE_BAR","completion":"close above mother high for long","failure":"close below defined pattern low","notes":"Mother colour and number of inside candles are not strength rules in the teacher's later clarification."},
+    {"id":"FAKEY","completion":"inside bar, break below mother low, then close above mother high","failure":"calibration pending","notes":"The immediate next candle simply breaking the mother is not a fakey."},
+    {"id":"BULLISH_ENGULFING","completion":"at its own close","failure":"close below pattern low","notes":"Reject or delay near opposing supply or with negative divergence."},
+    {"id":"FAILED_BEARISH_ENGULFING","completion":"close above bearish engulfing high","failure":"close below pattern low","notes":null},
+    {"id":"FALSE_BREAKDOWN","completion":"break prior low then recover and close above trigger line","failure":"close below final pattern low","notes":"Positive divergence is a strong enhancer."},
+    {"id":"VOLUME_CANDLE_BREAKOUT","completion":"close above volume-candle high","failure":"close below its low","notes":"Location before/after a rise or decline changes interpretation."},
+    {"id":"POSITIVE_RSI_DIVERGENCE","completion":"price lower low and RSI higher low plus price trigger","failure":"not a standalone entry","notes":"Requires calibration for pivot selection."}
+  ]
+}

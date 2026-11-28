@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.0.0",
+  "updated_at": "2026-11-28T00:00:00+03:00",
+  "group": "احتراف المضاربات اللحظية ٩",
+  "scope_start": "2025-06-30",
+  "scope_end": "2026-11-28",
+  "baseline": {
+    "source": "docs/CANDLES_VOLUME_RULES.md",
+    "text_claim": "The prior researcher reports reading the practice group from its first message to 2026-11-27.",
+    "visual_chart_claim": "The same source explicitly states chart images were not read.",
+    "accepted_as_prior_knowledge": true,
+    "accepted_as_visual_review": false
+  },
+  "discovered": {
+    "teacher_messages": null,
+    "mod_messages": null,
+    "media_items": null,
+    "voice_items": null,
+    "video_items": null
+  },
+  "reviewed_this_mission": {
+    "messages": 61,
+    "teacher_messages": 30,
+    "mod_messages": 31,
+    "charts_visually_opened": 1,
+    "charts_zoomed": 1,
+    "audio_items": 0,
+    "video_items": 0,
+    "files": 2,
+    "unique_cases": 2,
+    "rules_created": 8,
+    "strategies_catalogued": 11,
+    "success_cases": 1,
+    "failure_cases": 1,
+    "unresolved_cases": 29
+  },
+  "last_reviewed": {
+    "teacher_message_id": "4294993905",
+    "teacher_date": "2026-11-14",
+    "mod_message_id": "4294994090",
+    "mod_date": "2026-11-27"
+  },
+  "completed_date_ranges": [],
+  "partially_reviewed_date_ranges": [
+    {"from": "2026-10-01", "to": "2026-11-27", "mode": "sender search plus one visual chart inspection"}
+  ],
+  "next_resume_point": {
+    "author": "Ahmed Abu Abdullah",
+    "date": "2025-06-30",
+    "instruction": "Clear the current Telegram sender search, jump to 2025-06-30, reapply the sender filter, and review chronologically. Record each data-mid before moving on."
+  },
+  "actual_coverage_percent": null,
+  "coverage_note": "Cannot calculate until Telegram result totals are discovered. Do not infer coverage from the prior prose summary.",
+  "blocked_or_unavailable": [
+    "Protected or non-downloadable Telegram media must be reviewed in-place only.",
+    "Exact total message counts per author have not yet been obtained.",
+    "Most charts remain visually unreviewed."
+  ],
+  "status": "in_progress"
+}
