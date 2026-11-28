@@ -385,7 +385,7 @@ These are the user's design choices for TradingLab, not course rules.
 - **Pattern lifecycle:** `Detected` (shape found) → `Pending` (waiting for the confirming close) → `Confirmed` → `Invalidated`. Engulfing candles go straight to `Confirmed` at their own close; the other patterns need a later close past their line.
 - **Pattern IDs:** bearish `BEAR_01` false breakout, `BEAR_02` negative divergence, `BEAR_03` shooting star, `BEAR_04` bearish engulfing, `BEAR_05` doji, `BEAR_06` broken buying candle, `BEAR_07` broken volume candle. The bullish 12 of §3.1 can follow as `BULL_01`–`BULL_12`.
 - **Confluence:** log **every** signal that completes on a bar (one candle can carry several). Don't give signals weights or confidence scores until the backtest shows whether confluence helps. This refines the [audio L3] confluence line above: record the count and test it, don't assume it.
-- **Bullish pattern IDs** (lesson 3 summary): the user's list has 9 entry patterns plus divergence as a supporting factor. The course has 12 (slides and PDF); the user's list is missing slide 1 (retest) and slide 5 (spinning top), because the transcript only covers slides 6–12. Mapping, with the two missing ones added as BULL_10 and BULL_11:
+- **Bullish pattern IDs** (lesson 3 summary): the user's list has 9 entry patterns plus divergence as a supporting factor. The course has 12 (slides and PDF); the user's list is missing slide 1 (retest) and slide 5 (spinning top), because the transcript only covers slides 6–12. Mapping, with the two missing slide patterns added as BULL_11 and BULL_12 (BULL_10 is the user's bullish doji):
   | User ID | Pattern | Slide # (§3.1) |
   |---|---|---|
   | BULL_01 | False breakdown | 2 |
@@ -397,11 +397,22 @@ These are the user's design choices for TradingLab, not course rules.
   | BULL_07 | Pin bar | 9 |
   | BULL_08 | Broken buying candle, then close above | 10 |
   | BULL_09 | Fakey | 11 |
-  | **BULL_10** | **Retest / role reversal**: a broken top is retested from above and holds; buy on the bullish close there (PDF example lines 65.80 / 64.20, stop 2.51 %) | 1 |
-  | **BULL_11** | **Spinning top**: two roughly equal wicks and a small body inside the zone, then a close above it (PDF example 45.50 / 44.40, stop 2.47 %) | 5 |
+  | **BULL_11** | **Retest / role reversal**: a broken top is retested from above and holds; buy on the bullish close there (PDF example lines 65.80 / 64.20, stop 2.51 %) | 1 |
+  | **BULL_12** | **Spinning top**: two roughly equal wicks and a small body inside the zone, then a close above it (PDF example 45.50 / 44.40, stop 2.47 %) | 5 |
+  | BULL_10 | **Bullish doji** (user's ID, from the lesson 3 discussion, إسراء example): a doji in a buyer zone, then a close above it. Body/wick ratio not given (parameter). Not one of the 12 slides; also used by the teacher in the group (`g#4353`) | discussion |
   | SUPPORT_01 | Positive RSI(14) divergence, supporting only | 12 |
 - **Fakey detection order** (user's notes): mother bar → next bar inside the mother's range (mandatory) → low broken (wick or body) → close above the mother's high (a return inside the range is not enough) → stop = lowest low during the pattern → signal only if the zone context is valid.
 - **Signals aren't independent:** several patterns can share the same candles and confirming close. So a high confluence count may double-count one event. Take this into account when testing confluence.
+- **From the lesson 3 discussion summary** (user's, covers `msg 44` including after 20:00; that part is not video-checked yet):
+  - **Gap handling per pattern type:** keep the raw candle, and compute each pattern's levels separately. Change-based candles (buying, selling, volume, the false-break candle) use the **previous close** across a gap. Shape patterns (inside bar, fakey, doji, pin bar, spinning top) use the candle's **own range** and ignore the gap. This matches the group (`g#3260, 4232, 5241`); the السعودي الألماني example shows the two giving different lines on the same candle.
+  - **Exception, long gap-down on news with high volume:** the volume candle's zone can use the **top of its body**, not the previous close, and the gap itself becomes a possible target. No size is given for a "long" gap (parameter).
+  - **Signal ≠ order:** a completed pattern is a signal. Entering at once, waiting for a retest, or splitting the size is an **entry policy**, kept in a separate Entry Policy Engine (the teacher allows all three, `g#1207, 3487`).
+  - **One candle, many labels:** each candle carries every label that applies: change type, volume, shape, relation to the previous candle (engulfing) and to the next (mother), break of a top or bottom, later closes, and zone position.
+  - **A zone can give several separate trades over time** (سينومي). One failed pattern does not cancel the zone.
+  - **A positive zone or candle is not an entry**: wait for the pattern (الحفر العربية: volume and buying candles, then wait for a pin bar).
+  - **1 % threshold, Strict vs Flexible mode:** the teacher accepted candles a little under 1 % (إنتاج −0.96 %, الزامل). Test both modes; the tolerance is a parameter, not a course number.
+  - **Stop** = min(low from the reference candle to the confirming close). Check each pattern's own stop definition before applying it to all.
+  - **Tests to run** (TEST_01–10): 2 patterns vs 1; 3+ patterns; HTF zone vs same-TF zone; immediate entry vs retest; split entry; flexible 1 %; the gap exception; divergence as a booster; many zone touches; pattern results by timeframe. Report win rate, net return, profit factor and max drawdown by confluence count, after costs and slippage, with no look-ahead.
 - **Exit policy as a parameter:** early (engulfing close) versus confirmed (close below a nearby volume-candle low). Test both.
 
 Still open in the course, with what we have so far:
