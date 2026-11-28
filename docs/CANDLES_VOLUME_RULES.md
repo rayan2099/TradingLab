@@ -277,14 +277,25 @@ the top of a long selling candle (higher or same TF), the top of a volume candle
 **Strategies** (خلفيات واستراتيجيات التداول على الفوليوم, `@28:00–33:00`):
 1. Price **above a higher-TF volume candle** → buyers dominate; look for any intraday pattern.
    Example strategy: **entry = a 15 m close above the volume candle; stop = the lowest price between the volume candle's top and the close that broke it.**
+   Slide example (@27:20): entry line 99.80, stop 98.40 (≈1.4 %).
 2. Price **returns to a higher-TF volume candle it rose from** (a buyer zone) → look for an intraday pattern (example: positive divergence + inside bar + a negative candle closed above).
+   Slide example (@30:00): entry 14.51, stop 14.10 (≈2.8 %).
 3. Price **trades inside a higher-TF volume candle** → its **low is support** (look for entries near it) and its **high is resistance**.
+
+**Strategy 3 worked example, the stop check** (slide @33:20, frame read 28 Nov 2026): a 1 h volume candle forms at the **low of a higher-TF volume candle**, then price closes above it («شمعة كميات ثم الإغلاق أعلاها (إيجابي)»). On the slide, the stop for entering on that close measures **5.87 % (8.21 SAR)**. The teacher doesn't take it. He waits for a **completed false break** («الاستراتيجية الفنية: كسر وهمي مكتمل») near the same low: **entry 150.40, stop 147.20 = 2.13 % (3.20 SAR)**. So a valid pattern was skipped only because its stop was too wide. The slide shows the two numbers but writes **no cap**; the cap itself is spoken (see §5).
+
+**From the user's lesson 4 summary** (transcript-based; the slides agree where they show it, the audio is not checked):
+- Compare a volume bar **only with the bars before it**, never with bars that haven't formed yet. The teacher says some traders compare with the last 10 or 20 bars, but he compares **by eye**. So the teacher gives no number: any lookback is a parameter.
+- The **4-location matrix** (the slides show 3; the summary adds the 4th): after a rise + close **below** it → positivity cancelled; after a rise + close **above** → buyer still on top; after a fall + close **above** → positivity achieved (one of the teacher's favourites); after a fall + **no** close above → seller pressure not over yet.
+- **7 causes**, summed up as two: high volume **at prior support** (previous low, a volume candle's low, a buyer zone) or **at prior resistance** (previous top, a selling candle's top, a broken volume candle, a broken buying candle). Either way the **later closes** decide who won.
+- The three strategies apply to **all four positive candles** of lesson 1 (buying, gap buying, bullish engulfing, positive volume candle), not only to volume candles.
 
 ---
 
 ## 5. Risk, stop and target — إدارة الصفقة
 
-- **Stop ≤ 3 %** from entry (`msg 43 @2:00`).
+- **Stop ≤ 3 %** from entry (`msg 43 @2:00`; written in the lesson 3 PDF intro «ألا تزيد عن ٣٪»; repeated by the teacher in the group `g#2137, 2697, 20465`).
+- **5 % vs 3 % (open):** the user's lesson 4 transcript has the teacher saying a trade isn't opened with a stop **over 5 %**. The lesson 4 slide doesn't print a cap: it shows a 5.87 % stop rejected and a 2.13 % stop taken (§4). Both cases fit **either** cap, so the video can't settle it. The only **written** number is 3 % (lesson 3 PDF), and the teacher repeats 3 % in the group. Likely readings: a slip in the transcript, or 5 % spoken as an outer limit while 3 % is the working rule. Code it as the parameter `max_stop_pct`, default **3 %** (the written rule), and run **5 %** as a sensitivity test (RISK_TEST_01). This is a cap on the **price distance** to the stop, not on portfolio risk.
 - Stop placement used in the examples: under the pattern's low, under the selling candle's low (`msg 112`), or under the lowest point between the broken candle and the close-back candle (`msg 110`, `msg 67 @28:00`).
 - **Target:** the slides don't give a fixed rule. The examples measure +3 % to +8 % moves to the next opposing zone (supply / previous top), e.g. `msg 43 @7:20` +7.6 %, `@15:35` +4.9 %, `@30:50` +5.7 %. *Confirmed in the practice group (§8.7): target = 2–3× the stop, exits on intraday negative patterns, stop = lowest low between the pattern line and the close above it.*
 - Timeframes used: weekly/daily for zones, **15 m** (sometimes 5 m) for entries. Market in all examples: **Saudi stocks (Tadawul)**, TickerChart.
@@ -323,7 +334,8 @@ ENTRY (LTF, while price is inside the HTF zone), any of:
   fakey: break of mother low, then close > mother high (#11)
   buying candle broken (even by wick), then close > its high (#10)
   inside-bar breakout, pin bar, RSI positive divergence (#6, #9, #12)
-STOP: below pattern low;  reject trade if stop distance > 3%
+STOP: below pattern low;  reject trade if stop distance > max_stop_pct (default 3%; test 5%, see §5)
+  [slide L4 @33:20] valid close-above-volume-candle skipped at 5.87% stop; false break taken at 2.13%
   [group] stop triggers on a 15m CLOSE below the pattern low (not a wick); if a candle breaks it,
           mark that candle's low and exit only on a close below it (false-break filter, g#25823)
   [group] trail: move stop up under each new bullish pattern / volume candle on the LTF
@@ -414,12 +426,20 @@ These are the user's design choices for TradingLab, not course rules.
   - **Stop** = min(low from the reference candle to the confirming close). Check each pattern's own stop definition before applying it to all.
   - **Tests to run** (TEST_01–10): 2 patterns vs 1; 3+ patterns; HTF zone vs same-TF zone; immediate entry vs retest; split entry; flexible 1 %; the gap exception; divergence as a booster; many zone touches; pattern results by timeframe. Report win rate, net return, profit factor and max drawdown by confluence count, after costs and slippage, with no look-ahead.
 - **Exit policy as a parameter:** early (engulfing close) versus confirmed (close below a nearby volume-candle low). Test both.
+- **From the lesson 4 summary** (user's design):
+  - **Rule IDs:** `VOL_01` ignore the volume bar's colour; `VOL_02` compare with prior bars only; `VOL_03` find the trend before the volume candle; `VOL_04` watch for a close above or below it; `VOL_05` find the opposing support or resistance (its cause); `VOL_06` place price relative to the candle's range (above / back at it / inside); `VOL_07` apply the three contexts to all four positive candles (**Positive Market Context**); `RISK_01` reject a setup whose stop distance is over the cap (`max_stop_pct`; 3 % vs 5 %, see §5).
+  - **Relative Volume Engine:** `RVOL_t = V_t / mean(V_{t-1} … V_{t-N})`. The current bar is not in the average, and no future bars are used. The user's trial thresholds, **2× = high, 3× = very high**, are the user's assumptions, not the teacher's. N (5/10/20) is a parameter.
+  - **Comparison methods to test:** rolling mean, rolling median, time-of-day RVOL (same session slot on prior days, because the open is naturally busier), and percentile of past volumes. This intraday-pattern point is the user's own addition, not from the lesson.
+  - **Volume-candle states:** `Detected` → close above = positive / inside the range = watch / close below = negative; store when the state changes and re-test the zone later.
+  - **Stop distance ≠ portfolio risk:** the cap is the % between entry and stop. Risk per trade as a % of capital and position size are separate, and the course hasn't covered them yet.
+  - **Tests:** `VOL_TEST_01` volume candles after a fall vs after a rise; `02` very high vs high; `03` lookback 10 vs 20; `04` with vs without opposing support; `05` retest vs breakout entry; `06` volume pattern + another candle pattern; `07` LTF patterns while above a HTF volume candle; `08` is the volume candle's low a real support; `09` time-of-day adjustment; `RISK_TEST_01` effect of the stop cap on profit and drawdown. All after costs and slippage, without picking only the winning examples.
 
 Still open in the course, with what we have so far:
 | Item | Status |
 |---|---|
 | RSI setting | **RSI(14)**, shown on the course slides (lesson 2 slide 22:30; lesson 3 slide 12 / PDF page 14) |
-| Volume candle, numeric | none from the teacher ("higher than the bars before it"). Mod's own strategy uses vol > SMA(vol, 20) (`g#10561`). The lookback is a parameter. |
+| Volume candle, numeric | none from the teacher ("higher than the bars before it", compared by eye; he mentions others using the last 10 or 20 bars). Mod's own strategy uses vol > SMA(vol, 20) (`g#10561`). The user's RVOL 2×/3× are trial values. The lookback and thresholds are parameters. |
+| Max stop distance | **3 %** written (lesson 3 PDF, group); **5 %** in the user's lesson 4 transcript, not on the slide. Parameter `max_stop_pct`, default 3 %, test 5 % |
 | Wick/body ratios (shooting star, doji, pin bar, spinning top) | not given; parameters |
 | How close two tops must be for a divergence | not given ("close together"); parameter |
 | Zone invalidation | partial: a zone touched many times is weaker (`g#17014`); if daily zones are broken, use weekly only (§3.1 filter) |
