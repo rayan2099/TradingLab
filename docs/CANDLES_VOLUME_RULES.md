@@ -302,6 +302,30 @@ the top of a long selling candle (higher or same TF), the top of a volume candle
 
 ---
 
+## 5a. The screen: where to look at 10:00 — تصميم الشاشة (`msg 73`, lesson 5) — `[audio]`
+Transcript sent by the user (28 Nov 2026), with settings checked against the video frames. The lesson is a TickerChart setup (Professional package plus real-time data, desktop only). The teacher says this screen, used for 3+ years, is how he finds stocks and patterns at the open; formulas, filters and evening plans didn't work as well for him. **How to use each panel comes in part 2 / the live session (`msg 76`), not here.** So this section lists **what** he watches, not trading rules yet.
+
+- **Linked charts, one tab each** (all windows share one link colour, so a symbol clicked anywhere loads everywhere):
+  | Tab | Interval / span | Extra |
+  |---|---|---|
+  | تاسي | the index | change only |
+  | 5 دقائق | 5 m / 1 week | |
+  | 15 دقيقة | 15 m / 3 months | **SMA(200)**, dashed black (frame @11:40) |
+  | **متابعة** (follow-up, "the most important tab") | **15 m / 2 weeks** (frame @21:40) | |
+  | RSI | as متابعة | volume replaced by RSI |
+  | ساعة | 1 h / 3 months | |
+  | يوم | 1 d / 1 year | |
+  | أسبوع | 1 w / 5 years | |
+  | أسهمي ×2 | his own stocks | separate link colour |
+- **Market list columns:** name, change, change %, **index impact**, **free float**.
+- **Scanners** (frames @16:35–19:00):
+  - **Top gainers on 5 m**, depth 30 («أكثر ارتفاعاً»).
+  - **Top losers on 15 m**, depth 30 («أكثر انخفاضاً»).
+  - **Market monitor «الراصد»:** alerts on **special trade**, **new high**, **new 3-month high**, **new weekly high**. "Only show stocks meeting all conditions" is **off**, so any one alert shows.
+  - **Net liquidity by time** on the **1-minute** interval (only the net column kept).
+  - **Time & sales** and **market depth** by order and by price.
+- **Not a rule, but stated:** the 15 m SMA(200) is the first moving average in the course; no rule for it is given yet. Don't trade with the course until you've practised it. Trading is also trade, portfolio and emotion management: a failed pattern without a stop turned a 3 % loss into 30 %.
+
 ## 6. Codable spec (for the backtest) — draft
 
 ```
@@ -334,6 +358,8 @@ ENTRY (LTF, while price is inside the HTF zone), any of:
   fakey: break of mother low, then close > mother high (#11)
   buying candle broken (even by wick), then close > its high (#10)
   inside-bar breakout, pin bar, RSI positive divergence (#6, #9, #12)
+[audio L5] UNIVERSE (screen, use not yet explained): 5m top-30 gainers, 15m top-30 losers, alerts on
+          new high / new 3-month high / new weekly high / special trade; 15m chart has SMA(200)
 STOP: below pattern low;  reject trade if stop distance > max_stop_pct (default 3%; test 5%, see §5)
   [slide L4 @33:20] valid close-above-volume-candle skipped at 5.87% stop; false break taken at 2.13%
   [group] stop triggers on a 15m CLOSE below the pattern low (not a wick); if a candle breaks it,
@@ -448,10 +474,10 @@ Still open in the course, with what we have so far:
 
 ## 7. Gaps — what's still missing
 
-- **Spoken content**: lessons 1 and 2 (`msg 7, 26`) are done `[audio]`, checked against the videos; lesson 3 is done for slides 6–12 (`msg 43` from ~18:30). Still missing: lesson 3 slides 1–5, lessons 4–5 (`msg 67, 73`), the discussion videos (`msg 8, 68, 74`, and `msg 44` after 20:00; `msg 27` and `msg 44` 0–20:00 done `[audio]`; lesson 1 says the discussion «لا تقل أهمية» than the lesson), the live session (`msg 76`), and course B's long lessons. The user is supplying transcripts.
+- **Spoken content**: lessons 1 and 2 (`msg 7, 26`) are done `[audio]`, checked against the videos; lesson 3 is done for slides 6–12 (`msg 43` from ~18:30). Still missing: lesson 3 slides 1–5, lesson 4 audio (`msg 67`; the user's organised summary is merged, §4 / §6.1), the discussion videos (`msg 8, 68, 74`, and `msg 44` after 20:00; `msg 27` and `msg 44` 0–20:00 done `[audio]`; lesson 1 says the discussion «لا تقل أهمية» than the lesson), the live session (`msg 76`), and course B's long lessons. The user is supplying transcripts.
 - Exact volume-candle threshold, exit/target rule, and position sizing: not on any slide.
 - PDFs: download-protected.
-- Lesson 5 (`msg 73`, screen design) is a TickerChart setup walkthrough: no trading rules on screen.
+- Lesson 5 (`msg 73`): done as §5a (screen setup, no trading rules). How the panels are used is still to come (part 2 / live session `msg 76`).
 
 ---
 
