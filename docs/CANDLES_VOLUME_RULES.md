@@ -385,16 +385,34 @@ These are the user's design choices for TradingLab, not course rules.
 - **Pattern lifecycle:** `Detected` (shape found) → `Pending` (waiting for the confirming close) → `Confirmed` → `Invalidated`. Engulfing candles go straight to `Confirmed` at their own close; the other patterns need a later close past their line.
 - **Pattern IDs:** bearish `BEAR_01` false breakout, `BEAR_02` negative divergence, `BEAR_03` shooting star, `BEAR_04` bearish engulfing, `BEAR_05` doji, `BEAR_06` broken buying candle, `BEAR_07` broken volume candle. The bullish 12 of §3.1 can follow as `BULL_01`–`BULL_12`.
 - **Confluence:** log **every** signal that completes on a bar (one candle can carry several). Don't give signals weights or confidence scores until the backtest shows whether confluence helps. This refines the [audio L3] confluence line above: record the count and test it, don't assume it.
+- **Bullish pattern IDs** (lesson 3 summary): the user's list has 9 entry patterns plus divergence as a supporting factor. The course has 12 (slides and PDF); the user's list is missing slide 1 (retest) and slide 5 (spinning top), because the transcript only covers slides 6–12. Mapping, with the two missing ones added as BULL_10 and BULL_11:
+  | User ID | Pattern | Slide # (§3.1) |
+  |---|---|---|
+  | BULL_01 | False breakdown | 2 |
+  | BULL_02 | Close above a selling candle | 3 |
+  | BULL_03 | Close above a volume candle | 4 |
+  | BULL_04 | Inside bar | 6 |
+  | BULL_05 | Bullish engulfing (single-decision) | 7 |
+  | BULL_06 | Failed bearish engulfing | 8 |
+  | BULL_07 | Pin bar | 9 |
+  | BULL_08 | Broken buying candle, then close above | 10 |
+  | BULL_09 | Fakey | 11 |
+  | **BULL_10** | **Retest / role reversal**: a broken top is retested from above and holds; buy on the bullish close there (PDF example lines 65.80 / 64.20, stop 2.51 %) | 1 |
+  | **BULL_11** | **Spinning top**: two roughly equal wicks and a small body inside the zone, then a close above it (PDF example 45.50 / 44.40, stop 2.47 %) | 5 |
+  | SUPPORT_01 | Positive RSI(14) divergence, supporting only | 12 |
+- **Fakey detection order** (user's notes): mother bar → next bar inside the mother's range (mandatory) → low broken (wick or body) → close above the mother's high (a return inside the range is not enough) → stop = lowest low during the pattern → signal only if the zone context is valid.
+- **Signals aren't independent:** several patterns can share the same candles and confirming close. So a high confluence count may double-count one event. Take this into account when testing confluence.
 - **Exit policy as a parameter:** early (engulfing close) versus confirmed (close below a nearby volume-candle low). Test both.
 
 Still open in the course, with what we have so far:
 | Item | Status |
 |---|---|
-| RSI setting | **RSI(14)** on the course slides (lesson 2 slide 22:30, lesson 3 slide 12) |
+| RSI setting | **RSI(14)**, shown on the course slides (lesson 2 slide 22:30; lesson 3 slide 12 / PDF page 14) |
 | Volume candle, numeric | none from the teacher ("higher than the bars before it"). Mod's own strategy uses vol > SMA(vol, 20) (`g#10561`). The lookback is a parameter. |
 | Wick/body ratios (shooting star, doji, pin bar, spinning top) | not given; parameters |
 | How close two tops must be for a divergence | not given ("close together"); parameter |
 | Zone invalidation | partial: a zone touched many times is weaker (`g#17014`); if daily zones are broken, use weekly only (§3.1 filter) |
+| Target | course slides show no fixed rule; the teacher in the group says 2–3× the stop (`g#4353`), or the next seller zone |
 | Gap-up entry, exit on a close below the body low | Mod's gap-up strategy (`g#7147`, `g#3221`), see §6 |
 
 ## 7. Gaps — what's still missing
