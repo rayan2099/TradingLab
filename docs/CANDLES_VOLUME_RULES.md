@@ -205,6 +205,25 @@ The transcript is two recordings joined: the **discussion video `msg 44` from 0:
   - سينومي ريتيل (13:10–16:30): the zone is a volume candle that is also a > 3.5 % buying candle. Inside it come a fakey, a pin bar that rose > 10 %, and later an inside bar. The mother there is a ≥ 1 % negative candle and a spinning top.
   - جبل عمر (17:00–18:10): one candle that engulfs the candle before it, is the mother of the inside bar after it, and breaks the prior bottom. Price made a lower low while RSI did not.
 
+### 3.1b The lesson PDFs: worked numbers per pattern (`msg 9, 28, 45`, sent by the user 28 Nov 2026)
+The three lesson PDFs are the same pages as the video slides (lesson 1: 15 pages, lesson 2: 10, lesson 3: 15). Every page matches §2.1, §2.2a and §3.1, with no new rules. The PDFs also confirm that seller zone 5 is a broken **buying** candle (page title «الشمعة الشرائية المكسورة التي تأتي بعد صعود»).
+What they add is clean numbers for each lesson 3 example. All are 15 m patterns inside a higher-TF zone, **mostly weekly zones**:
+| # | Pattern | Zone it formed in (as labelled) | Lines (entry / stop) | Stop % | Move shown |
+|---|---|---|---|---|---|
+| 1 | Retest | broken prior top | 65.80 / 64.20 | 2.51 % | +4.13 % |
+| 2 | False break | prior **daily** bottom | 64.50 / 63.40 | 1.72 % | — |
+| 3 | Close above selling candle | **weekly** volume candle price rose from, then returned | 14.32 / 14.10 | 1.56 % | — |
+| 4 | Close above volume candle | **weekly** long selling candle that was breached | 22.20 / 21.70 | 2.30 % | — |
+| 5 | Spinning top | **weekly** demand zone | 45.50 / 44.40 | 2.47 % | +3.58 % |
+| 6 | Inside bar | prior bottom | 12.08 / 12.00 | 0.67 % | +4.98 % |
+| 7 | Bullish engulfing | **weekly** breached top | 30.45 / 30.15 | 1.00 % | — |
+| 8 | Failed bearish engulfing | **weekly** breached top | 91.70 / 90.30 | 1.55 % | — |
+| 9 | Pin bar | **weekly** bottom | 162.40 / 157.60 | 3.00 % | — |
+| 10 | Broken buying candle | **weekly** demand zone | 172.60 / 168.60 | 2.41 % | — |
+| 11 | Fakey | breached long selling candle | 25.20 / 24.96 | 0.96 % | +5.77 % |
+| 12 | Positive divergence | breached top | 24.48 / 24.00 | 2.02 % | — |
+Every stop is **≤ 3 %**, matching the lesson 3 PDF intro: the stop «يشترط شرطاً أساسياً ألا تزيد عن ٣٪». Where a move is shown, it is about 1.5–6× the stop.
+
 ### 3.2 Course B versions of the same ideas
 - **High-volume candle model** شمعة الكميات العالية (`msg 107`): *"the positive model is to break it first, then return and close above it, in an uptrend"*. In other words: price dips below the high-volume candle, then closes back above it.
 - **Buying-candle break model** نموذج كسر الشمعة الشرائية (`msg 110`): buying candle → broken → close back above = positive. **Stop: under the lowest point between the broken candle and the closing candle.**
@@ -351,6 +370,7 @@ STOP: below pattern low;  reject trade if stop distance > 3%
           DIVERGENCE (RSI14): filter/score only, never an entry by itself.
           Thresholds: allow a small tolerance (a -0.96% 15m candle counted as selling); ignore gaps in candle patterns.
           Stop % = (pattern line - stop line) / pattern line; target measured up from the pattern line.
+  [PDF L3] HTF for zones in the worked examples is mostly WEEKLY (9 of 12), daily in one; test 1w zones, not only 1d.
 TARGET (group): 2-3x the stop distance (g#4353); next supply / top
 TARGET: next HTF supply zone / previous top (no fixed % in slides)
 ```
