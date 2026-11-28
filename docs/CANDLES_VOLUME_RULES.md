@@ -377,6 +377,26 @@ TARGET: next HTF supply zone / previous top (no fixed % in slides)
 
 ---
 
+### 6.1 Design notes from the user's lesson summaries (28 Nov 2026)
+These are the user's design choices for TradingLab, not course rules.
+- **Principle:** don't turn a descriptive rule into a number by our own assumption. A number the course doesn't give is a labelled, tunable **parameter**.
+- **Pipeline** (lesson 1 summary): Market Scanner → Zone Detection (HTF) → Zone Validation → Entry Signal (LTF) → Risk Management → Execution.
+- **Zone State Engine** (lesson 2 summary): a zone is not permanently positive or negative. Track its state over time. *Positivity achieved* and *negativity cancelled* support a rise; *negativity achieved* and *positivity cancelled* support a fall. Example: a buying candle is positive until a close below it, then its positivity is cancelled.
+- **Pattern lifecycle:** `Detected` (shape found) → `Pending` (waiting for the confirming close) → `Confirmed` → `Invalidated`. Engulfing candles go straight to `Confirmed` at their own close; the other patterns need a later close past their line.
+- **Pattern IDs:** bearish `BEAR_01` false breakout, `BEAR_02` negative divergence, `BEAR_03` shooting star, `BEAR_04` bearish engulfing, `BEAR_05` doji, `BEAR_06` broken buying candle, `BEAR_07` broken volume candle. The bullish 12 of §3.1 can follow as `BULL_01`–`BULL_12`.
+- **Confluence:** log **every** signal that completes on a bar (one candle can carry several). Don't give signals weights or confidence scores until the backtest shows whether confluence helps. This refines the [audio L3] confluence line above: record the count and test it, don't assume it.
+- **Exit policy as a parameter:** early (engulfing close) versus confirmed (close below a nearby volume-candle low). Test both.
+
+Still open in the course, with what we have so far:
+| Item | Status |
+|---|---|
+| RSI setting | **RSI(14)** on the course slides (lesson 2 slide 22:30, lesson 3 slide 12) |
+| Volume candle, numeric | none from the teacher ("higher than the bars before it"). Mod's own strategy uses vol > SMA(vol, 20) (`g#10561`). The lookback is a parameter. |
+| Wick/body ratios (shooting star, doji, pin bar, spinning top) | not given; parameters |
+| How close two tops must be for a divergence | not given ("close together"); parameter |
+| Zone invalidation | partial: a zone touched many times is weaker (`g#17014`); if daily zones are broken, use weekly only (§3.1 filter) |
+| Gap-up entry, exit on a close below the body low | Mod's gap-up strategy (`g#7147`, `g#3221`), see §6 |
+
 ## 7. Gaps — what's still missing
 
 - **Spoken content**: lessons 1 and 2 (`msg 7, 26`) are done `[audio]`, checked against the videos; lesson 3 is done for slides 6–12 (`msg 43` from ~18:30). Still missing: lesson 3 slides 1–5, lessons 4–5 (`msg 67, 73`), the discussion videos (`msg 8, 68, 74`, and `msg 44` after 20:00; `msg 27` and `msg 44` 0–20:00 done `[audio]`; lesson 1 says the discussion «لا تقل أهمية» than the lesson), the live session (`msg 76`), and course B's long lessons. The user is supplying transcripts.
